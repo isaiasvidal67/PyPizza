@@ -1,9 +1,15 @@
-import os   #Versao 1
-resp = ""
-while resp != "0":
+import os   #Versao 2
+funcionarios = {
+  '123' : ["Juninho Forró", "67 99996767", "juninho@forrozeiro123.com", "Garçom", "6767.67"],
+  '898' : ["Severina Guerra", "19 99093939", "severina@guerradecanudos.com", "Atendente", "1896"],
+  '656' : ["Chico Petisco", "89 40028922", "chico@petisco.com", "Cozinheiro", "2026"],
+  '456' : ["Neymar Jr.", "83 201120215", "Neymar@Junio.com", "Pizzaiolo", "1621"]
+}
+menu_prin = ""
+while menu_prin != "0":
   os.system('cls')
   print("|' ' ' ' ' ' ' ' ' ' ' ' ' ' '|")     #Primeira versão do layout, tentei fazer uma caixa de pizza kk
-  print("|:                           :|")
+  print("|:                           :|")     # OBS: Alterar os "Resps" para um identificador melhor 
   print("|:::::::::::::::::::::::::::::|")
   print("|:::::::::::::::::::::::::::::|")
   print("|:::::-------------------:::::|")
@@ -24,9 +30,9 @@ while resp != "0":
   print("|:::   5 - Informações     :::|")
   print("|:::   0 - Sair            :::|")
   print("|:::::::::::::::::::::::::::::|")
-  resp = input("|:::   Escolha uma opção: ")
+  menu_prin = input("|:::   Escolha uma opção: ")
 
-  if resp == '1':
+  if menu_prin == '1':
     print()
     print("|:::::::::::::::::::::::::::::|")
     print("|:::      FUNCIONÁRIOS     :::|")
@@ -37,9 +43,9 @@ while resp != "0":
     print("|:::   4 - Excluir         :::|")
     print("|:::   0 - Menu Principal  :::|")
     print("|:::::::::::::::::::::::::::::|")
-    resp2 = input("|:::   Escolha uma opção: ")
+    menu_fun = input("|:::   Escolha uma opção: ")
     print()
-    if resp2 == '1':
+    if menu_fun == '1':
       os.system('cls')
       print("|:::::::::::::::::::::::::::::|")
       print("|:::   Cadastrar novo      :::|")
@@ -50,7 +56,6 @@ while resp != "0":
       nome = input("|:::  Nome: ")
       fone = input("|:::  Telefone: ")
       email = input("|:::  Email: ")
-      idade = input("|:::  Idade: ")
       cargo = input("|:::  Cargo: ")
       sala = input("|:::  Salário: ")
       id_funcionario = input("|:::  Id: ")
@@ -69,7 +74,7 @@ while resp != "0":
       print("|:::::::::::::::::::::::::::::|")
       print()
 
-    elif resp2 == '2':
+    elif menu_fun == '2':
       os.system('cls')
       print()
       print("|:::::::::::::::::::::::::::::|")
@@ -98,7 +103,7 @@ while resp != "0":
       print("|:::::::::::::::::::::::::::::|")
       print()
 
-    elif resp2 == '3':
+    elif menu_fun == '3':
       os.system('cls')
       print("|:::::::::::::::::::::::::::::|")
       print("|:::     Alterar dados     :::|")
@@ -127,7 +132,7 @@ while resp != "0":
       print("|::::                     ::::|")
       print("|:::::::::::::::::::::::::::::|")
       print()
-    elif resp2 == '4':
+    elif menu_fun == '4':
       print("|:::::::::::::::::::::::::::::|")
       print("|:::        Excluir        :::|")
       print("|:::      Funcionário      :::|")
@@ -146,7 +151,7 @@ while resp != "0":
       print("|:::    DESENVOLVIMENTO    :::|")
       print("|::::                     ::::|")
       print("|:::::::::::::::::::::::::::::|")
-    elif resp2 == '0':
+    elif menu_fun == '0':
       print("|:::::::::::::::::::::::::::::|")
       print("|:::      Voltando ao      :::|")
       print("|:::    Menu Principal...  :::|")
@@ -167,7 +172,7 @@ while resp != "0":
     print()
     input("Pressione 'ENTER' para continuar")
 
-  elif resp == '2':
+  elif menu_prin == '2':
     print()
     print("|:::::::::::::::::::::::::::::|")
     print("|:::        CARDÁPIO       :::|")
@@ -178,9 +183,9 @@ while resp != "0":
     print("|:::   4 - Bebidas         :::|")
     print("|:::   0 - Menu Principal  :::|")
     print("|:::::::::::::::::::::::::::::|")
-    resp2 = input("|:::   Escolha uma opção: ")
+    menu_card = input("|:::   Escolha uma opção: ")
     print ()
-    if resp2 == '1':
+    if menu_card == '1':
       print("|:::::::::::::::::::::::::::::|")
       print("|:::      Menu Pizzas      :::|")
       print("|:::::::::::::::::::::::::::::|")
@@ -270,7 +275,7 @@ while resp != "0":
         print("|:::   Principal e Tente   :::|")
         print("|:::      Novamente!!      :::|")
         print("|:::::::::::::::::::::::::::::|")
-    elif resp2 == '2':
+    elif menu_card == '2':
       print("|:::::::::::::::::::::::::::::|")
       print("|:::      Menu Lanches     :::|")
       print("|:::::::::::::::::::::::::::::|")
@@ -356,7 +361,7 @@ while resp != "0":
         print("|:::   Principal e Tente   :::|")
         print("|:::      Novamente!!      :::|")
         print("|:::::::::::::::::::::::::::::|")
-    elif resp2 == '3':
+    elif menu_card == '3':
       print("|:::::::::::::::::::::::::::::|")
       print("|:::     Menu Sobremesa    :::|")
       print("|:::::::::::::::::::::::::::::|")
@@ -370,7 +375,7 @@ while resp != "0":
       print("|:::    DESENVOLVIMENTO    :::|")
       print("|::::                     ::::|")
       print("|:::::::::::::::::::::::::::::|")
-    elif resp2 == '4':
+    elif menu_card == '4':
       print("|:::::::::::::::::::::::::::::|")
       print("|:::      Menu Bebidas     :::|")
       print("|:::::::::::::::::::::::::::::|")
@@ -384,7 +389,7 @@ while resp != "0":
       print("|:::    DESENVOLVIMENTO    :::|")
       print("|::::                     ::::|")
       print("|:::::::::::::::::::::::::::::|")
-    elif resp2 == '0':
+    elif menu_card == '0':
       print("|:::::::::::::::::::::::::::::|")
       print("|:::      Voltando ao      :::|")
       print("|:::    Menu Principal...  :::|")
@@ -404,7 +409,7 @@ while resp != "0":
       print("|:::::::::::::::::::::::::::::|")
     print()
     input("Pressione 'ENTER' para continuar")
-  elif resp == '3':
+  elif menu_prin == '3':
     print()
     print("|:::::::::::::::::::::::::::::|")
     print("|:::        ESTOQUE        :::|")
@@ -416,9 +421,9 @@ while resp != "0":
     print("|:::   5 - Atualizar Item  :::|")
     print("|:::   0 - Menu Principal  :::|")
     print("|:::::::::::::::::::::::::::::|")
-    resp2 = input("|:::   Escolha uma opção: ")
+    menu_estq = input("|:::   Escolha uma opção: ")
     print()
-    if resp2 == '1':
+    if menu_estq == '1':
       print()
       print("|:::::::::::::::::::::::::::::|")
       print("|::::     ! ! ! ! ! !     ::::|")
@@ -430,7 +435,7 @@ while resp != "0":
       print("|:::    DESENVOLVIMENTO    :::|")
       print("|::::                     ::::|")
       print("|:::::::::::::::::::::::::::::|")
-    elif resp2 == '2':
+    elif menu_estq == '2':
       print("|:::::::::::::::::::::::::::::|")
       print("|::::     ! ! ! ! ! !     ::::|")
       print("|:::     ! ! AVISO ! !     :::|")
@@ -441,7 +446,7 @@ while resp != "0":
       print("|:::    DESENVOLVIMENTO    :::|")
       print("|::::                     ::::|")
       print("|:::::::::::::::::::::::::::::|")
-    elif resp2 == '3':
+    elif menu_estq == '3':
       print("|:::::::::::::::::::::::::::::|")
       print("|::::     ! ! ! ! ! !     ::::|")
       print("|:::     ! ! AVISO ! !     :::|")
@@ -452,7 +457,7 @@ while resp != "0":
       print("|:::    DESENVOLVIMENTO    :::|")
       print("|::::                     ::::|")
       print("|:::::::::::::::::::::::::::::|")
-    elif resp2 == '4':
+    elif menu_estq == '4':
       print("|:::::::::::::::::::::::::::::|")
       print("|::::     ! ! ! ! ! !     ::::|")
       print("|:::     ! ! AVISO ! !     :::|")
@@ -463,7 +468,7 @@ while resp != "0":
       print("|:::    DESENVOLVIMENTO    :::|")
       print("|::::                     ::::|")
       print("|:::::::::::::::::::::::::::::|")
-    elif resp2 == '5':
+    elif menu_estq == '5':
       print("|:::::::::::::::::::::::::::::|")
       print("|::::     ! ! ! ! ! !     ::::|")
       print("|:::     ! ! AVISO ! !     :::|")
@@ -474,7 +479,7 @@ while resp != "0":
       print("|:::    DESENVOLVIMENTO    :::|")
       print("|::::                     ::::|")
       print("|:::::::::::::::::::::::::::::|")
-    elif resp2 == '0':
+    elif menu_estq == '0':
       print("|:::::::::::::::::::::::::::::|")
       print("|:::      Voltando ao      :::|")
       print("|:::    Menu Principal...  :::|")
@@ -494,41 +499,34 @@ while resp != "0":
       print("|:::::::::::::::::::::::::::::|")
     print()
     input("Pressione 'ENTER' para continuar")
-  elif resp == '4':
+  elif menu_prin == '4':
     print()
-    print("|:::::::::::::::::::::::::::::|")
-    print("|:::       RELATORIOS      :::|")
-    print("|:::::::::::::::::::::::::::::|")
-    print("|:::::::::::::::::::::::::::::|")
-    print("|::::     ! ! ! ! ! !     ::::|")
-    print("|:::     ! ! AVISO ! !     :::|")
-    print("|::::     ! ! ! ! ! !     ::::|")
-    print("|:::::::::::::::::::::::::::::|")
-    print("|::::                     ::::|")
-    print("|:::    FUNÇÃO AINDA EM    :::|")
-    print("|:::    DESENVOLVIMENTO    :::|")
-    print("|::::                     ::::|")
-    print("|:::::::::::::::::::::::::::::|")
+    print("|:::::::::::::::::::::::::::::::::::::::::::::|")
+    print("|:::               RELATORIOS              :::|")
+    print("|:::::::::::::::::::::::::::::::::::::::::::::|")
+    print("|:::    1 - Lista Geral De Funcionários    :::|")
+    print("|:::    2 - Lista Geral Do Cardápio        :::|")
+    print("|:::    3 - Lista Geral Do Estoque         :::|")
+    print("|:::    4 - Lista de Funcioários por Cargo :::|")
+    print("|:::    5 - Menu Principal                 :::|") 
+    print("|:::::::::::::::::::::::::::::::::::::::::::::|")
+    menu_rlt = input("|:::   Escolha uma opção: ")
     print()
     input("Pressione 'ENTER' para continuar")
-  elif resp == '5':
+  elif menu_prin == '5':
     print()
-    print("|:::::::::::::::::::::::::::::|")
-    print("|:::      INFORMAÇÕES      :::|")
-    print("|:::::::::::::::::::::::::::::|")
-    print("|:::::::::::::::::::::::::::::|")
-    print("|::::     ! ! ! ! ! !     ::::|")
-    print("|:::     ! ! AVISO ! !     :::|")
-    print("|::::     ! ! ! ! ! !     ::::|")
-    print("|:::::::::::::::::::::::::::::|")
-    print("|::::                     ::::|")
-    print("|:::    FUNÇÃO AINDA EM    :::|")
-    print("|:::    DESENVOLVIMENTO    :::|")
-    print("|::::                     ::::|")
-    print("|:::::::::::::::::::::::::::::|")
+    print("|::::::::::::::::::::::::::::::::::::::::::|")
+    print("|:::             INFORMAÇÕES            :::|")
+    print("|::::::::::::::::::::::::::::::::::::::::::|")
+    print("|::: Sistema De Gestão Para Pizzaria    :::|")
+    print("|::: Desenvolvedor:                     :::|")
+    print("|::: Isaias Vidal Medeiros              :::|")
+    print("|::: Licença Pública MIT                :::|")
+    print("|::: https://opensource.org/license/mit :::|")
+    print("|::::::::::::::::::::::::::::::::::::::::::|")
     print()
     input("Pressione 'ENTER' para continuar")
-  elif resp == '0':
+  elif menu_prin == '0':
     print("|:::::::::::::::::::::::::::::|")
     print("|:::      Encerrando       :::|")
     print("|:::     O Programa em     :::|")
