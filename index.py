@@ -3,10 +3,10 @@ def linha():
     print("|:::::::::::::::::::::::::::::|")
 
 funcionarios = {
-  'F123' : ["Juninho Forró", "67 99996767", "juninho@forrozeiro123.com", "Garçom", "6767.67"],
-  'F898' : ["Severina Guerra", "19 99093939", "severina@guerradecanudos.com", "Atendente", "1896"],
-  'F656' : ["Chico Petisco", "89 40028922", "chico@petisco.com", "Cozinheiro", "2026"],
-  'F456' : ["Neymar Jr.", "83 201120215", "Neymar@Junio.com", "Pizzaiolo", "1621"]
+  'f123' : ["Juninho Forró", "67 99996767", "juninho@forrozeiro123.com", "Garçom", "6767.67"],
+  'f898' : ["Severina Guerra", "19 99093939", "severina@guerradecanudos.com", "Atendente", "1896"],
+  'f656' : ["Chico Petisco", "89 40028922", "chico@petisco.com", "Cozinheiro", "2026"],
+  'f456' : ["Neymar Jr.", "83 201120215", "Neymar@Junio.com", "Pizzaiolo", "1621"]
 }
 cardapio = {
   'pizzas' : {
@@ -103,25 +103,18 @@ while menu_prin != "0":
       print()
 
       nome = input("|:::  Nome: ")
-      fone = input("|:::  Telefone: ")
+      fone = float(input("|:::  Telefone: "))
       email = input("|:::  Email: ")
       cargo = input("|:::  Cargo: ")
-      sala = input("|:::  Salário: ")
+      sala = float(input("|:::  Salário: "))
       id_fun = input("|:::  Id: ")
       print()
-      print("Funcionário cadastrado!!")
-      print()
-      print("|:::::::::::::::::::::::::::::|")
-      print("|::::     ! ! ! ! ! !     ::::|")
-      print("|:::     ! ! AVISO ! !     :::|")
-      print("|::::     ! ! ! ! ! !     ::::|")
-      print("|:::::::::::::::::::::::::::::|")
-      print("|::::                     ::::|")
-      print("|:::    FUNÇÃO AINDA EM    :::|")
-      print("|:::    DESENVOLVIMENTO    :::|")
-      print("|::::                     ::::|")
-      print("|:::::::::::::::::::::::::::::|")
-      print()
+      if id_fun not in funcionarios:
+        funcionarios[id_fun] = [nome, fone, email, cargo, sala]
+        print("|:::   Funcionário Cadastrado Com Sucesso!!!   :::|")
+        print(funcionarios)
+      else:
+        print("|:::   ID Enviado Já Está Em Uso!!!   :::|")
 
     elif menu_fun == '2':
       os.system('cls')
@@ -281,6 +274,8 @@ while menu_prin != "0":
           print("|:::::::::::::::::::::::::::::|")
           print(cardapio['pizzas'][id_piz])
           print()
+        else:
+          print("|:::   ID Enviado Já Está Em Uso!!   :::| ")
       elif menu_piz == '4':
         print("|:::::::::::::::::::::::::::::|")
         print("|:::     Alterar Pizza     :::|")
