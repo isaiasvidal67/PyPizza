@@ -1,48 +1,97 @@
 import os   #Versao 2
+def linha():
+    print("|:::::::::::::::::::::::::::::|")
+
 funcionarios = {
-  '123' : ["Juninho Forró", "67 99996767", "juninho@forrozeiro123.com", "Garçom", "6767.67"],
-  '898' : ["Severina Guerra", "19 99093939", "severina@guerradecanudos.com", "Atendente", "1896"],
-  '656' : ["Chico Petisco", "89 40028922", "chico@petisco.com", "Cozinheiro", "2026"],
-  '456' : ["Neymar Jr.", "83 201120215", "Neymar@Junio.com", "Pizzaiolo", "1621"]
+  'F123' : ["Juninho Forró", "67 99996767", "juninho@forrozeiro123.com", "Garçom", "6767.67"],
+  'F898' : ["Severina Guerra", "19 99093939", "severina@guerradecanudos.com", "Atendente", "1896"],
+  'F656' : ["Chico Petisco", "89 40028922", "chico@petisco.com", "Cozinheiro", "2026"],
+  'F456' : ["Neymar Jr.", "83 201120215", "Neymar@Junio.com", "Pizzaiolo", "1621"]
+}
+cardapio = {
+  'pizzas' : {
+    "p001" : {
+      "sabor" : "calabresa",
+      "preco" : 40.00
+    },
+    'p002' : {
+      "sabor" : "margarita",
+      "preco" : 45.00
+    },
+    'p003' : {
+      "sabor" : "portuguesa",
+      "preco" : 40.00
+    },
+    'p004' : {
+      "sabor" : "carne de sol",
+      "preco" : 35.00
+    }
+  },
+  'lanches' : {
+    'l001' : {
+    "nome" : "hamburguer",
+    "preco" : 17.00
+    }
+  },
+  'sobremesas' : {
+    's001' : {
+      "nome" : "pudim",
+      "preco" : 7.00
+    }
+  },
+  'bebidas' : {
+    'b001' : {
+      "nome" : "coca-cola 2l",
+      "preco" : 12.00
+    },
+    'b002' : {
+      "nome" : "guaraná 2l",
+      "preco": 11.00
+    }
+  }
+}
+estoque = {
+
 }
 menu_prin = ""
 while menu_prin != "0":
   os.system('cls')
   print("|' ' ' ' ' ' ' ' ' ' ' ' ' ' '|")     #Primeira versão do layout, tentei fazer uma caixa de pizza kk
   print("|:                           :|")     # OBS: Alterar os "Resps" para um identificador melhor 
-  print("|:::::::::::::::::::::::::::::|")
-  print("|:::::::::::::::::::::::::::::|")
+  linha()
+  linha()
   print("|:::::-------------------:::::|")
   print("|::::/                   \\::::|")
   print("|:::|   Projeto PyPizza   |:::|")
   print("|::::\\                   /::::|")
   print("|::::::-----------------::::::|")
-  print("|:::::::::::::::::::::::::::::|")
-  print("|:::::::::::::::::::::::::::::|")
+  linha()
+  linha()
   print("|:                           :|")
   print("|. . . . . . . . . . . . . . .|")
   print()
-  print("|:::::::::::::::::::::::::::::|")
+  linha()
   print("|:::   1 - Funcionários    :::|")
   print("|:::   2 - Cardápio        :::|")
   print("|:::   3 - Estoque         :::|")
   print("|:::   4 - Relátorio       :::|")
   print("|:::   5 - Informações     :::|")
   print("|:::   0 - Sair            :::|")
-  print("|:::::::::::::::::::::::::::::|")
+  linha()
+ 
   menu_prin = input("|:::   Escolha uma opção: ")
 
   if menu_prin == '1':
     print()
-    print("|:::::::::::::::::::::::::::::|")
+    linha()
     print("|:::      FUNCIONÁRIOS     :::|")
-    print("|:::::::::::::::::::::::::::::|")
+    linha()
     print("|:::   1 - Cadastrar       :::|")
     print("|:::   2 - Pesquisar       :::|")
     print("|:::   3 - Alterar         :::|")
     print("|:::   4 - Excluir         :::|")
     print("|:::   0 - Menu Principal  :::|")
-    print("|:::::::::::::::::::::::::::::|")
+    linha()
     menu_fun = input("|:::   Escolha uma opção: ")
     print()
     if menu_fun == '1':
@@ -58,7 +107,7 @@ while menu_prin != "0":
       email = input("|:::  Email: ")
       cargo = input("|:::  Cargo: ")
       sala = input("|:::  Salário: ")
-      id_funcionario = input("|:::  Id: ")
+      id_fun = input("|:::  Id: ")
       print()
       print("Funcionário cadastrado!!")
       print()
@@ -82,9 +131,9 @@ while menu_prin != "0":
       print("|:::      Funcionário      :::|")
       print("|:::::::::::::::::::::::::::::|")
       print()
-      id_funcionario = input("|:::   Informe o ID que deseja pesquisar: ")
+      id_fun = input("|:::   Informe o ID que deseja pesquisar: ")
       print()
-      print("|:::   ID: ", id_funcionario)
+      print("|:::   ID: ", id_fun)
       print("|:::   Nome: ")
       print("|:::   Telefone: ")
       print("|:::   Email: ")
@@ -110,7 +159,7 @@ while menu_prin != "0":
       print("|:::    do Funcionário     :::|")
       print("|:::::::::::::::::::::::::::::|")
       print()
-      id_funcionario = input("|:::   Id: ")
+      id_fun = input("|:::   Id: ")
       print()
       nome = input("|:::  Nome: ")
       fone = input("|:::  Telefone: ")
@@ -196,68 +245,87 @@ while menu_prin != "0":
       print("|:::   5 - Excluir Pizza   :::|")
       print("|:::   0 - Menu Principal  :::|")
       print("|:::::::::::::::::::::::::::::|")
-      print()
-      resp3 = input("|:::   Escolha uma opção: ")
-      if resp3 == '1':
+      menu_piz = input("|:::   Escolha uma opção: ")
+      if menu_piz == '1':
         print("|:::::::::::::::::::::::::::::|")
-        print("|::::     ! ! ! ! ! !     ::::|")
-        print("|:::     ! ! AVISO ! !     :::|")
-        print("|::::     ! ! ! ! ! !     ::::|")
+        print("|:::        Pizzas         :::|")
         print("|:::::::::::::::::::::::::::::|")
-        print("|::::                     ::::|")
-        print("|:::    FUNÇÃO AINDA EM    :::|")
-        print("|:::    DESENVOLVIMENTO    :::|")
-        print("|::::                     ::::|")
-        print("|:::::::::::::::::::::::::::::|")
+        print("|:::   Pizzas Cadastradas: ", (cardapio["pizzas"]))
         print()
-      elif resp3 == '2':
+      elif menu_piz == '2':
         print("|:::::::::::::::::::::::::::::|")
-        print("|::::     ! ! ! ! ! !     ::::|")
-        print("|:::     ! ! AVISO ! !     :::|")
-        print("|::::     ! ! ! ! ! !     ::::|")
+        print("|:::      Buscar Pizza     :::|")
         print("|:::::::::::::::::::::::::::::|")
-        print("|::::                     ::::|")
-        print("|:::    FUNÇÃO AINDA EM    :::|")
-        print("|:::    DESENVOLVIMENTO    :::|")
-        print("|::::                     ::::|")
-        print("|:::::::::::::::::::::::::::::|")
+        id_piz = input("|::: Informe o ID da Pizza: ")
         print()
-      elif resp3 == '3':
+        if id_piz in cardapio['pizzas']:
+          print("|:::   Pizza Encontrada!!  :::|")
+          print("|:::   Sabor: ", cardapio['pizzas'][id_piz]['sabor'])
+          print("|:::   Preço: ", cardapio['pizzas'][id_piz]['preco'])
+          print()
+        else:
+          print("|:::  Pizza Não Encontrada :::|")
+          print()
+      elif menu_piz == '3':
         print("|:::::::::::::::::::::::::::::|")
-        print("|::::     ! ! ! ! ! !     ::::|")
-        print("|:::     ! ! AVISO ! !     :::|")
-        print("|::::     ! ! ! ! ! !     ::::|")
+        print("|:::     Adicionar Pizza   :::|")
         print("|:::::::::::::::::::::::::::::|")
-        print("|::::                     ::::|")
-        print("|:::    FUNÇÃO AINDA EM    :::|")
-        print("|:::    DESENVOLVIMENTO    :::|")
-        print("|::::                     ::::|")
-        print("|:::::::::::::::::::::::::::::|")
+        sabor = input("|:::   Informe o Novo Sabor: ")
+        preco = float(input("|:::   Informe o Preço: "))
+        id_piz = input("|:::   Informe um ID Para a Pizza: ")
         print()
-      elif resp3 == '4':
+        if id_piz not in cardapio['pizzas']:
+          cardapio['pizzas'][id_piz] = {"sabor" : sabor, "preco" : preco}
+          print("|:::::::::::::::::::::::::::::|")
+          print("|:::   Pizza Adicionada!!  :::|")
+          print("|:::::::::::::::::::::::::::::|")
+          print(cardapio['pizzas'][id_piz])
+          print()
+      elif menu_piz == '4':
         print("|:::::::::::::::::::::::::::::|")
-        print("|::::     ! ! ! ! ! !     ::::|")
-        print("|:::     ! ! AVISO ! !     :::|")
-        print("|::::     ! ! ! ! ! !     ::::|")
+        print("|:::     Alterar Pizza     :::|")
         print("|:::::::::::::::::::::::::::::|")
-        print("|::::                     ::::|")
-        print("|:::    FUNÇÃO AINDA EM    :::|")
-        print("|:::    DESENVOLVIMENTO    :::|")
-        print("|::::                     ::::|")
-        print("|:::::::::::::::::::::::::::::|")
+        id_piz = input("|:::   Informe o ID da Pizza: ")
         print()
-      elif resp3 == '5':
+        if id_piz in cardapio['pizzas']:
+          print("|:::::::::::::::::::::::::::::|")
+          print("|::: Informações da Pizza  :::|")
+          print("|:::::::::::::::::::::::::::::|")
+          print("|:::   Sabor: ", cardapio['pizzas'][id_piz]['sabor'])
+          print("|:::   Preço: ", cardapio['pizzas'][id_piz]['preco'])
+          print()
+          print("|:::   Informe o que Deseja Alterar   :::|")
+          sabor = input("|:::   Informe o Sabor: ")
+          preco = float(input("|:::   Informe o Preço: "))
+          cardapio['pizzas'][id_piz]['sabor'] = sabor
+          cardapio['pizzas'][id_piz]['preco'] = preco
+          print()
+          print("|::: Pizza Alterada com Sucesso :::|")
+          print(cardapio['pizzas'][id_piz])
+        else:
+          print("|:::   Pizza não encontrada :::|")
+      elif menu_piz == '5':
         print("|:::::::::::::::::::::::::::::|")
-        print("|::::     ! ! ! ! ! !     ::::|")
-        print("|:::     ! ! AVISO ! !     :::|")
-        print("|::::     ! ! ! ! ! !     ::::|")
+        print("|:::     Excluir Pizza     :::|")
         print("|:::::::::::::::::::::::::::::|")
-        print("|::::                     ::::|")
-        print("|:::    FUNÇÃO AINDA EM    :::|")
-        print("|:::    DESENVOLVIMENTO    :::|")
-        print("|::::                     ::::|")
-        print("|:::::::::::::::::::::::::::::|")
-      elif resp3 == '0':
+        id_piz = input("|:::   Informe o ID da Pizza: ")
+        print()
+        if id_piz in cardapio['pizzas']:
+          print("|:::::::::::::::::::::::::::::|")
+          print("|::: Informações da Pizza  :::|")
+          print("|:::::::::::::::::::::::::::::|")
+          print("|:::   Sabor: ", cardapio['pizzas'][id_piz]['sabor'])
+          print("|:::   Preço: ", cardapio['pizzas'][id_piz]['preco'])
+          print()
+          decisao = input("|:::   Tecle 's' Para Confirmar a Exclusão:  ").lower()
+          if decisao == 's':
+            del cardapio['pizzas'][id_piz]
+            print("|:::   Pizza Excluída!!   :::|")
+          else:
+            print("|:::   Exclusão Cancelada!!   :::|")
+        else:
+          print("|:::   Pizza Não Encontrada!!   :::|")
+      elif menu_piz == '0':
         print("|:::::::::::::::::::::::::::::|")
         print("|:::      Voltando ao      :::|")
         print("|:::    Menu Principal...  :::|")
@@ -286,9 +354,8 @@ while menu_prin != "0":
       print("|:::   5 - Excluir Lanche  :::|")
       print("|:::   0 - Menu Principal  :::|")
       print("|:::::::::::::::::::::::::::::|")
-      print()
-      resp3 = input("|:::   Escolha uma opção: ")
-      if resp3 == '1':
+      menu_lnc = input("|:::   Escolha uma opção: ")
+      if menu_lnc == '1':
         print("|:::::::::::::::::::::::::::::|")
         print("|::::     ! ! ! ! ! !     ::::|")
         print("|:::     ! ! AVISO ! !     :::|")
@@ -299,7 +366,7 @@ while menu_prin != "0":
         print("|:::    DESENVOLVIMENTO    :::|")
         print("|::::                     ::::|")
         print("|:::::::::::::::::::::::::::::|")
-      elif resp3 == '2':
+      elif menu_lnc == '2':
         print("|:::::::::::::::::::::::::::::|")
         print("|::::     ! ! ! ! ! !     ::::|")
         print("|:::     ! ! AVISO ! !     :::|")
@@ -310,7 +377,7 @@ while menu_prin != "0":
         print("|:::    DESENVOLVIMENTO    :::|")
         print("|::::                     ::::|")
         print("|:::::::::::::::::::::::::::::|")
-      elif resp3 == '3':
+      elif menu_lnc == '3':
         print("|:::::::::::::::::::::::::::::|")
         print("|::::     ! ! ! ! ! !     ::::|")
         print("|:::     ! ! AVISO ! !     :::|")
@@ -321,7 +388,7 @@ while menu_prin != "0":
         print("|:::    DESENVOLVIMENTO    :::|")
         print("|::::                     ::::|")
         print("|:::::::::::::::::::::::::::::|")
-      elif resp3 == '4':
+      elif menu_lnc == '4':
         print("|:::::::::::::::::::::::::::::|")
         print("|::::     ! ! ! ! ! !     ::::|")
         print("|:::     ! ! AVISO ! !     :::|")
@@ -332,7 +399,7 @@ while menu_prin != "0":
         print("|:::    DESENVOLVIMENTO    :::|")
         print("|::::                     ::::|")
         print("|:::::::::::::::::::::::::::::|")
-      elif resp3 == '5':
+      elif menu_lnc == '5':
         print("|:::::::::::::::::::::::::::::|")
         print("|::::     ! ! ! ! ! !     ::::|")
         print("|:::     ! ! AVISO ! !     :::|")
@@ -343,7 +410,7 @@ while menu_prin != "0":
         print("|:::    DESENVOLVIMENTO    :::|")
         print("|::::                     ::::|")
         print("|:::::::::::::::::::::::::::::|")
-      elif resp3 == '0':
+      elif menu_lnc == '0':
         print("|:::::::::::::::::::::::::::::|")
         print("|:::      Voltando ao      :::|")
         print("|:::    Menu Principal...  :::|")
@@ -362,33 +429,33 @@ while menu_prin != "0":
         print("|:::      Novamente!!      :::|")
         print("|:::::::::::::::::::::::::::::|")
     elif menu_card == '3':
-      print("|:::::::::::::::::::::::::::::|")
-      print("|:::     Menu Sobremesa    :::|")
-      print("|:::::::::::::::::::::::::::::|")
-      print("|:::::::::::::::::::::::::::::|")
-      print("|::::     ! ! ! ! ! !     ::::|")
-      print("|:::     ! ! AVISO ! !     :::|")
-      print("|::::     ! ! ! ! ! !     ::::|")
-      print("|:::::::::::::::::::::::::::::|")
-      print("|::::                     ::::|")
-      print("|:::    FUNÇÃO AINDA EM    :::|")
-      print("|:::    DESENVOLVIMENTO    :::|")
-      print("|::::                     ::::|")
-      print("|:::::::::::::::::::::::::::::|")
+      print("|:::::::::::::::::::::::::::::::::|")
+      print("|:::       Menu Sobremesa      :::|")
+      print("|:::::::::::::::::::::::::::::::::|")
+      print("|:::   1 - Lista Sobremesas    :::|")
+      print("|:::   2 - Buscar Sobremesa    :::|")
+      print("|:::   3 - Adicionar Sobremesa :::|")
+      print("|:::   4 - Alterar Sobremesa   :::|")
+      print("|:::   5 - Excluir Sobremesa   :::|")
+      print("|:::   0 - Menu Principal      :::|")
+      print("|:::::::::::::::::::::::::::::::::|")
+      menu_sbms = input("|:::   Escolha uma opção: ")
+      print("******")
+
     elif menu_card == '4':
-      print("|:::::::::::::::::::::::::::::|")
-      print("|:::      Menu Bebidas     :::|")
-      print("|:::::::::::::::::::::::::::::|")
-      print("|:::::::::::::::::::::::::::::|")
-      print("|::::     ! ! ! ! ! !     ::::|")
-      print("|:::     ! ! AVISO ! !     :::|")
-      print("|::::     ! ! ! ! ! !     ::::|")
-      print("|:::::::::::::::::::::::::::::|")
-      print("|::::                     ::::|")
-      print("|:::    FUNÇÃO AINDA EM    :::|")
-      print("|:::    DESENVOLVIMENTO    :::|")
-      print("|::::                     ::::|")
-      print("|:::::::::::::::::::::::::::::|")
+      print("|:::::::::::::::::::::::::::::::::|")
+      print("|:::       Menu Bebida         :::|")
+      print("|:::::::::::::::::::::::::::::::::|")
+      print("|:::   1 - Lista Bebidas       :::|")
+      print("|:::   2 - Buscar Bebida       :::|")
+      print("|:::   3 - Adicionar Bebida    :::|")
+      print("|:::   4 - Alterar Bebida      :::|")
+      print("|:::   5 - Excluir Bebida      :::|")
+      print("|:::   0 - Menu Principal      :::|")
+      print("|:::::::::::::::::::::::::::::::::|")
+      menu_lnc = input("|:::   Escolha uma opção: ")
+      print("****")
+    
     elif menu_card == '0':
       print("|:::::::::::::::::::::::::::::|")
       print("|:::      Voltando ao      :::|")
