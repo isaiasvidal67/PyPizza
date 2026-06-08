@@ -3,6 +3,24 @@ def linha():
     print("|:::::::::::::::::::::::::::::|")
 def limpar():
     os.system('cls' if os.name == 'nt' else 'clear')
+def menu():
+    print("|:::::::::::::::::::::::::::::|")
+    print("|:::      Voltando ao      :::|")
+    print("|:::    Menu Principal...  :::|")
+    print("|:::::::::::::::::::::::::::::|")
+    print()
+def invalida():
+    print("|:::::::::::::::::::::::::::::|")
+    print("|:::  ! ! ! ! ! ! ! ! ! !  :::|")
+    print("|:::  !  OPÇÃO INVÁLIDA !  :::|")
+    print("|:::  ! ! ! ! ! ! ! ! ! !  :::|")
+    print("|:::::::::::::::::::::::::::::|")
+    print()
+    print("|:::::::::::::::::::::::::::::|")
+    print("|:::     Volte Ao Menu     :::|")
+    print("|:::  E Escolha Uma Opção  :::|")
+    print("|:::        Válida!!!      :::|")
+    print("|:::::::::::::::::::::::::::::|")
 
 funcionarios = {
   'f123' : ["Juninho Forró", "67 99996767", "juninho@forrozeiro123.com", "Garçom", 6767.67],
@@ -230,25 +248,11 @@ while menu_prin != "0":
             
       elif menu_fun == '0':
         limpar()
-        print("|:::::::::::::::::::::::::::::|")
-        print("|:::      Voltando ao      :::|")
-        print("|:::    Menu Principal...  :::|")
-        print("|:::::::::::::::::::::::::::::|")
-        print()
+        menu()
       else:
-        print("|:::::::::::::::::::::::::::::|")
-        print("|:::  ! ! ! ! ! ! ! ! ! !  :::|")
-        print("|:::  !  OPÇÃO INVÁLIDA !  :::|")
-        print("|:::  ! ! ! ! ! ! ! ! ! !  :::|")
-        print("|:::::::::::::::::::::::::::::|")
-        print()
-        print("|:::::::::::::::::::::::::::::|")
-        print("|:::     Volte Ao Menu     :::|")
-        print("|:::  E Escolha Uma Opção  :::|")
-        print("|:::        Válida!!!      :::|")
-        print("|:::::::::::::::::::::::::::::|")
-      print()
-      input("Pressione 'ENTER' para continuar")
+        invalida()
+      if menu_fun != '0':
+         input("Pressione ENTER para continuar...")
 
   elif menu_prin == '2':
     menu_card = ''
@@ -368,23 +372,9 @@ while menu_prin != "0":
               print("|:::   Pizza Não Encontrada!!   :::|")
           elif menu_piz == '0':
             limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::      Voltando ao      :::|")
-            print("|:::    Menu Principal...  :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            print()
+            menu()
           else:
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::  ! ! ! ! ! ! ! ! ! !  :::|")
-            print("|:::  !  OPÇÃO INVÁLIDA !  :::|")
-            print("|:::  ! ! ! ! ! ! ! ! ! !  :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            print()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::     Volte Ao Menu     :::|")
-            print("|:::  E Escolha Uma Opção  :::|")
-            print("|:::        Válida!!!      :::|")
-            print("|:::::::::::::::::::::::::::::|")
+            invalida()
           if menu_piz != '0':
             input("Pressione ENTER para continuar...")
       elif menu_card == '2':
@@ -489,23 +479,10 @@ while menu_prin != "0":
               print("|:::   Lanche Não Encontrado!!   :::|")
           elif menu_lnc == '0':
             limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::      Voltando ao      :::|")
-            print("|:::    Menu Principal...  :::|")
-            print("|:::::::::::::::::::::::::::::|")
+            menu()
             print()
           else:
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::  ! ! ! ! ! ! ! ! ! !  :::|")
-            print("|:::  !  OPÇÃO INVÁLIDA !  :::|")
-            print("|:::  ! ! ! ! ! ! ! ! ! !  :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            print()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::     Volte Ao Menu     :::|")
-            print("|:::  E Escolha Uma Opção  :::|")
-            print("|:::        Válida!!!      :::|")
-            print("|:::::::::::::::::::::::::::::|")
+            invalida()
           if menu_lnc != '0':
             input("Pressione ENTER para continuar...")
       elif menu_card == '3':
@@ -610,23 +587,10 @@ while menu_prin != "0":
               print("|:::   Sobremesa Não Encontrada!!   :::|")
           elif menu_sbm == '0':
             limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::      Voltando ao      :::|")
-            print("|:::    Menu Principal...  :::|")
-            print("|:::::::::::::::::::::::::::::|")
+            menu()
             print()
           else:
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::  ! ! ! ! ! ! ! ! ! !  :::|")
-            print("|:::  !  OPÇÃO INVÁLIDA !  :::|")
-            print("|:::  ! ! ! ! ! ! ! ! ! !  :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            print()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::     Volte Ao Menu     :::|")
-            print("|:::  E Escolha Uma Opção  :::|")
-            print("|:::        Válida!!!      :::|")
-            print("|:::::::::::::::::::::::::::::|")
+            invalida()
           if menu_sbm != '0':
              input("Pressione ENTER para continuar...")
       elif menu_card == '4':
@@ -731,46 +695,19 @@ while menu_prin != "0":
               print("|:::   Bebida Não Encontrada!!   :::|")
           elif menu_bbd == '0':
             limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::      Voltando ao      :::|")
-            print("|:::    Menu Principal...  :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            print()
+            menu()
           else:
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::  ! ! ! ! ! ! ! ! ! !  :::|")
-            print("|:::  !  OPÇÃO INVÁLIDA !  :::|")
-            print("|:::  ! ! ! ! ! ! ! ! ! !  :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            print()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::     Volte Ao Menu     :::|")
-            print("|:::  E Escolha Uma Opção  :::|")
-            print("|:::        Válida!!!      :::|")
-            print("|:::::::::::::::::::::::::::::|")
+            invalida()
           if menu_bbd != '0':
              input("Pressione ENTER para continuar...")
       elif menu_card == '0':
         limpar()
-        print("|:::::::::::::::::::::::::::::|")
-        print("|:::      Voltando ao      :::|")
-        print("|:::    Menu Principal...  :::|")
-        print("|:::::::::::::::::::::::::::::|")
-        print()
+        menu()
       else:
-        print("|:::::::::::::::::::::::::::::|")
-        print("|:::  ! ! ! ! ! ! ! ! ! !  :::|")
-        print("|:::  !  OPÇÃO INVÁLIDA !  :::|")
-        print("|:::  ! ! ! ! ! ! ! ! ! !  :::|")
-        print("|:::::::::::::::::::::::::::::|")
-        print()
-        print("|:::::::::::::::::::::::::::::|")
-        print("|:::     Volte Ao Menu     :::|")
-        print("|:::  E Escolha Uma Opção  :::|")
-        print("|:::        Válida!!!      :::|")
-        print("|:::::::::::::::::::::::::::::|")
+        invalida()
       print()
-      input("Pressione 'ENTER' para continuar")
+      if menu_card != '0':
+         input("Pressione ENTER para continuar...")
   elif menu_prin == '3':
     menu_estq = ''
     while menu_estq != '0':
@@ -891,23 +828,10 @@ while menu_prin != "0":
                     print("|::: Item Não Encontrado! :::|")
             elif menu_frios == '0':
               limpar()
-              print("|:::::::::::::::::::::::::::::|")
-              print("|:::      Voltando ao      :::|")
-              print("|:::    Menu Principal...  :::|")
-              print("|:::::::::::::::::::::::::::::|")
+              menu()
               print()
             else:
-              print("|:::::::::::::::::::::::::::::|")
-              print("|:::  ! ! ! ! ! ! ! ! ! !  :::|")
-              print("|:::  !  OPÇÃO INVÁLIDA !  :::|")
-              print("|:::  ! ! ! ! ! ! ! ! ! !  :::|")
-              print("|:::::::::::::::::::::::::::::|")
-              print()
-              print("|:::::::::::::::::::::::::::::|")
-              print("|:::     Volte Ao Menu     :::|")
-              print("|:::  E Escolha Uma Opção  :::|")
-              print("|:::        Válida!!!      :::|")
-              print("|:::::::::::::::::::::::::::::|")
+              invalida()
             if menu_frios != '0':
               input("Pressione ENTER para continuar...")
       elif menu_estq == '2':
@@ -1014,23 +938,9 @@ while menu_prin != "0":
                     print("|::: Item Não Encontrado! :::|")
             elif menu_secos == '0':
                 limpar()
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::      Voltando ao      :::|")
-                print("|:::    Menu Principal...  :::|")
-                print("|:::::::::::::::::::::::::::::|")
-                print()
+                menu()
             else:
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::  ! ! ! ! ! ! ! ! ! !  :::|")
-                print("|:::  !  OPÇÃO INVÁLIDA !  :::|")
-                print("|:::  ! ! ! ! ! ! ! ! ! !  :::|")
-                print("|:::::::::::::::::::::::::::::|")
-                print()
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::     Volte Ao Menu     :::|")
-                print("|:::  E EscolHA Uma Opção  :::|")
-                print("|:::        Válida!!!      :::|")
-                print("|:::::::::::::::::::::::::::::|")
+                invalida()
             if menu_secos != '0':
                 input("Pressione ENTER para continuar...")
       elif menu_estq == '3':
@@ -1137,23 +1047,9 @@ while menu_prin != "0":
                     print("|::: Item Não Encontrado! :::|")
             elif menu_cond == '0':
                 limpar()
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::      Voltando ao      :::|")
-                print("|:::    Menu Principal...  :::|")
-                print("|:::::::::::::::::::::::::::::|")
-                print()
+                menu()
             else:
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::  ! ! ! ! ! ! ! ! ! !  :::|")
-                print("|:::  !  OPÇÃO INVÁLIDA !  :::|")
-                print("|:::  ! ! ! ! ! ! ! ! ! !  :::|")
-                print("|:::::::::::::::::::::::::::::|")
-                print()
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::     Volte Ao Menu     :::|")
-                print("|:::  E Escolha Uma Opção  :::|")
-                print("|:::        Válida!!!      :::|")
-                print("|:::::::::::::::::::::::::::::|")
+                invalida()
             if menu_cond != '0':
                 input("Pressione ENTER para continuar...")
       elif menu_estq == '4':
@@ -1260,48 +1156,21 @@ while menu_prin != "0":
                     print("|::: Item Não Encontrado! :::|")
             elif menu_beb == '0':
                 limpar()
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::      Voltando ao      :::|")
-                print("|:::    Menu Principal...  :::|")
-                print("|:::::::::::::::::::::::::::::|")
-                print()
+                menu()
             else:
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::  ! ! ! ! ! ! ! ! ! !  :::|")
-                print("|:::  !  OPÇÃO INVÁLIDA !  :::|")
-                print("|:::  ! ! ! ! ! ! ! ! ! !  :::|")
-                print("|:::::::::::::::::::::::::::::|")
-                print()
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::     Volte Ao Menu     :::|")
-                print("|:::  E Escolha Uma Opção  :::|")
-                print("|:::        Válida!!!      :::|")
-                print("|:::::::::::::::::::::::::::::|")
+                invalida()
             if menu_beb != '0':
                 input("Pressione ENTER para continuar...")
       elif menu_estq == '0':
         limpar()
-        print("|:::::::::::::::::::::::::::::|")
-        print("|:::      Voltando ao      :::|")
-        print("|:::    Menu Principal...  :::|")
-        print("|:::::::::::::::::::::::::::::|")  
+        menu()  
         print()
       else:
-        print("|:::::::::::::::::::::::::::::|")
-        print("|:::  ! ! ! ! ! ! ! ! ! !  :::|")
-        print("|:::  !  OPÇÃO INVÁLIDA !  :::|")
-        print("|:::  ! ! ! ! ! ! ! ! ! !  :::|")
-        print("|:::::::::::::::::::::::::::::|")
-        print()
-        print("|:::::::::::::::::::::::::::::|")
-        print("|:::     Volte Ao Menu     :::|")
-        print("|:::  E Escolha Uma Opção  :::|")
-        print("|:::        Válida!!!      :::|")
-        print("|:::::::::::::::::::::::::::::|")
-        print()
-        input("Pressione 'ENTER' para continuar")
+        invalida()
+      print()
+      input("Pressione 'ENTER' para continuar")
   elif menu_prin == '4':
-    #menu_rlt = ''
+    #menu_rlt = ''#
    # while menu_rlt != "0":#
     print()
     print("|:::::::::::::::::::::::::::::::::::::::::::::|")
@@ -1339,19 +1208,8 @@ while menu_prin != "0":
     print("|:::::::::::::::::::::::::::::|")
     print()
   else:
-    print("|:::::::::::::::::::::::::::::|")
-    print("|:::  ! ! ! ! ! ! ! ! ! !  :::|")
-    print("|:::  !  OPÇÃO INVÁLIDA !  :::|")
-    print("|:::  ! ! ! ! ! ! ! ! ! !  :::|")
-    print("|:::::::::::::::::::::::::::::|")
-    print()
-    print("|:::::::::::::::::::::::::::::|")
-    print("|:::     Volte Ao Menu     :::|")
-    print("|:::   Principal e Tente   :::|")
-    print("|:::      Novamente!!      :::|")
-    print("|:::::::::::::::::::::::::::::|")
-    print()
-    input("Pressione 'ENTER' para continuar")
+    invalida()
+  input("Pressione 'ENTER' para continuar")
 
 print("|:::::::::::::::::::::::::::::|")
 print("|:::   Obrigado Por Usar   :::|")
