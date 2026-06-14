@@ -22,6 +22,114 @@ def invalida():
     print("|:::        Válida!!!      :::|")
     print("|:::::::::::::::::::::::::::::|")
 
+def crud_cardapio(categoria, campo_nome):
+        menu_item = ''
+        while menu_item != '0':
+          limpar()
+          print("|:::::::::::::::::::::::::::::|")
+          print(f"|::: {categoria.upper():^21} :::|")
+          print("|:::::::::::::::::::::::::::::|")
+          print("|:::   1 - Listar          :::|")
+          print("|:::   2 - Buscar          :::|")
+          print("|:::   3 - Adicionar       :::|")
+          print("|:::   4 - Alterar         :::|")
+          print("|:::   5 - Excluir         :::|")
+          print("|:::   0 - Menu Principal  :::|")
+          print("|:::::::::::::::::::::::::::::|")
+          menu_item = input("|:::   Escolha uma opção: ")
+          if menu_item == '1':
+            limpar()
+            print("|:::::::::::::::::::::::::::::|")
+            print(f"|::: {categoria.upper():^21} :::|")
+            print("|:::::::::::::::::::::::::::::|")
+            print(cardapio[categoria])
+            print()
+          elif menu_item == '2':
+            limpar()
+            print("|:::::::::::::::::::::::::::::|")
+            print("|:::      Buscar Item      :::|")
+            print("|:::::::::::::::::::::::::::::|")
+            id_item = input("|::: Informe o ID do Item: ")
+            print()
+            if id_item in cardapio[categoria]:
+              print("|:::   Item Encontrada!!  :::|")
+              print("|:::   Sabor: ", cardapio[categoria][id_item][campo_nome])
+              print("|:::   Preço: ", cardapio[categoria][id_item]['preco'])
+              print()
+            else:
+              print("|:::  Item Não Encontrado :::|")
+              print()
+          elif menu_item == '3':
+            limpar()
+            print("|:::::::::::::::::::::::::::::|")
+            print("|:::     Adicionar Item    :::|")
+            print("|:::::::::::::::::::::::::::::|")
+            nome = input(f"|:::   Informe o {campo_nome}: ")
+            preco = float(input("|:::   Informe o Preço: "))
+            id_item = input("|:::   Informe um ID: ")
+            print()
+            if id_item not in cardapio[categoria]:
+              cardapio[categoria][id_item] = {campo_nome : nome, "preco" : preco}
+              print("|:::::::::::::::::::::::::::::|")
+              print("|:::   Item Adicionado!!   :::|")
+              print("|:::::::::::::::::::::::::::::|")
+              print(cardapio[categoria][id_item])
+              print()
+            else:
+              print("|:::   ID Enviado Já Está Em Uso!!   :::| ")
+          elif menu_item == '4':
+            limpar()
+            print("|:::::::::::::::::::::::::::::|")
+            print("|:::     Alterar Item      :::|")
+            print("|:::::::::::::::::::::::::::::|")
+            id_item = input("|:::   Informe o ID: ")
+            print()
+            if id_item in cardapio[categoria]:
+              print("|:::::::::::::::::::::::::::::|")
+              print("|::: Informações do Item   :::|")
+              print("|:::::::::::::::::::::::::::::|")
+              print("|:::", campo_nome.capitalize(), cardapio[categoria][id_item][campo_nome])
+              print("|:::   Preço: ", cardapio[categoria][id_item]['preco'])
+              print("|:::   Informe o que Deseja Alterar   :::|")
+              nome = input(f"|:::   Novo {campo_nome}:  ")
+              preco = float(input("|:::   Informe o Preço: "))
+              cardapio[categoria][id_item][campo_nome] = nome
+              cardapio[categoria][id_item]['preco'] = preco
+              print()
+              print("|::: Item Alterado com Sucesso :::|")
+              print(cardapio[categoria][id_item])
+            else:
+              print("|:::   Item não encontrado :::|")
+          elif menu_item == '5':
+            limpar()
+            print("|:::::::::::::::::::::::::::::|")
+            print("|:::     Excluir Item      :::|")
+            print("|:::::::::::::::::::::::::::::|")
+            id_item = input("|:::   Informe o ID: ")
+            print()
+            if id_item in cardapio[categoria]:
+              print("|:::::::::::::::::::::::::::::|")
+              print("|::: Informações do Item  :::|")
+              print("|:::::::::::::::::::::::::::::|")
+              print("|:::", campo_nome.capitalize(), cardapio[categoria][id_item][campo_nome])
+              print("|:::   Preço: ", cardapio[categoria][id_item]['preco'])
+              print()
+              decisao = input("|:::   Tecle 's' Para Confirmar a Exclusão:  ").lower()
+              if decisao == 's':
+                del cardapio[categoria][id_item]
+                print("|:::   Item Excluído!!   :::|")
+              else:
+                print("|:::   Exclusão Cancelada!!   :::|")
+            else:
+              print("|:::   Item Não Encontrada!!   :::|")
+          elif menu_item == '0':
+            limpar()
+            menu()
+          else:
+            invalida()
+          if menu_item != '0':
+            input("Pressione ENTER para continuar...")
+   
 funcionarios = {
   'f123' : ["Juninho Forró", "67 99996767", "juninho@forrozeiro123.com", "Garçom", 6767.67],
   'f898' : ["Severina Guerra", "19 99093939", "severina@guerradecanudos.com", "Atendente", 1896.00],
@@ -270,436 +378,13 @@ while menu_prin != "0":
       menu_card = input("|:::   Escolha uma opção: ")
       print ()
       if menu_card == '1':
-        menu_piz = ''
-        while menu_piz != '0':
-          limpar()
-          print("|:::::::::::::::::::::::::::::|")
-          print("|:::      Menu Pizzas      :::|")
-          print("|:::::::::::::::::::::::::::::|")
-          print("|:::   1 - Lista Pizzas    :::|")
-          print("|:::   2 - Buscar Pizza    :::|")
-          print("|:::   3 - Adicionar Pizza :::|")
-          print("|:::   4 - Alterar Pizza   :::|")
-          print("|:::   5 - Excluir Pizza   :::|")
-          print("|:::   0 - Menu Principal  :::|")
-          print("|:::::::::::::::::::::::::::::|")
-          menu_piz = input("|:::   Escolha uma opção: ")
-          if menu_piz == '1':
-            limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::        Pizzas         :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::   Pizzas Cadastradas: ", (cardapio["pizzas"]))
-            print()
-          elif menu_piz == '2':
-            limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::      Buscar Pizza     :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            id_piz = input("|::: Informe o ID da Pizza: ")
-            print()
-            if id_piz in cardapio['pizzas']:
-              print("|:::   Pizza Encontrada!!  :::|")
-              print("|:::   Sabor: ", cardapio['pizzas'][id_piz]['sabor'])
-              print("|:::   Preço: ", cardapio['pizzas'][id_piz]['preco'])
-              print()
-            else:
-              print("|:::  Pizza Não Encontrada :::|")
-              print()
-          elif menu_piz == '3':
-            limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::     Adicionar Pizza   :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            sabor = input("|:::   Informe o Novo Sabor: ")
-            preco = float(input("|:::   Informe o Preço: "))
-            id_piz = input("|:::   Informe um ID Para a Pizza: ")
-            print()
-            if id_piz not in cardapio['pizzas']:
-              cardapio['pizzas'][id_piz] = {"sabor" : sabor, "preco" : preco}
-              print("|:::::::::::::::::::::::::::::|")
-              print("|:::   Pizza Adicionada!!  :::|")
-              print("|:::::::::::::::::::::::::::::|")
-              print(cardapio['pizzas'][id_piz])
-              print()
-            else:
-              print("|:::   ID Enviado Já Está Em Uso!!   :::| ")
-          elif menu_piz == '4':
-            limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::     Alterar Pizza     :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            id_piz = input("|:::   Informe o ID da Pizza: ")
-            print()
-            if id_piz in cardapio['pizzas']:
-              print("|:::::::::::::::::::::::::::::|")
-              print("|::: Informações da Pizza  :::|")
-              print("|:::::::::::::::::::::::::::::|")
-              print("|:::   Sabor: ", cardapio['pizzas'][id_piz]['sabor'])
-              print("|:::   Preço: ", cardapio['pizzas'][id_piz]['preco'])
-              print()
-              print("|:::   Informe o que Deseja Alterar   :::|")
-              sabor = input("|:::   Informe o Sabor: ")
-              preco = float(input("|:::   Informe o Preço: "))
-              cardapio['pizzas'][id_piz]['sabor'] = sabor
-              cardapio['pizzas'][id_piz]['preco'] = preco
-              print()
-              print("|::: Pizza Alterada com Sucesso :::|")
-              print(cardapio['pizzas'][id_piz])
-            else:
-              print("|:::   Pizza não encontrada :::|")
-          elif menu_piz == '5':
-            limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::     Excluir Pizza     :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            id_piz = input("|:::   Informe o ID da Pizza: ")
-            print()
-            if id_piz in cardapio['pizzas']:
-              print("|:::::::::::::::::::::::::::::|")
-              print("|::: Informações da Pizza  :::|")
-              print("|:::::::::::::::::::::::::::::|")
-              print("|:::   Sabor: ", cardapio['pizzas'][id_piz]['sabor'])
-              print("|:::   Preço: ", cardapio['pizzas'][id_piz]['preco'])
-              print()
-              decisao = input("|:::   Tecle 's' Para Confirmar a Exclusão:  ").lower()
-              if decisao == 's':
-                del cardapio['pizzas'][id_piz]
-                print("|:::   Pizza Excluída!!   :::|")
-              else:
-                print("|:::   Exclusão Cancelada!!   :::|")
-            else:
-              print("|:::   Pizza Não Encontrada!!   :::|")
-          elif menu_piz == '0':
-            limpar()
-            menu()
-          else:
-            invalida()
-          if menu_piz != '0':
-            input("Pressione ENTER para continuar...")
+        crud_cardapio('pizzas', 'sabor')
       elif menu_card == '2':
-        menu_lnc = ''
-        while menu_lnc != '0':
-          limpar()
-          print("|:::::::::::::::::::::::::::::|")
-          print("|:::      Menu Lanches     :::|")
-          print("|:::::::::::::::::::::::::::::|")
-          print("|:::   1 - Lista Lanches   :::|")
-          print("|:::   2 - Buscar Lanche   :::|")
-          print("|:::   3 - AdicionarLanche :::|")
-          print("|:::   4 - Alterar Lanche  :::|")
-          print("|:::   5 - Excluir Lanche  :::|")
-          print("|:::   0 - Menu Principal  :::|")
-          print("|:::::::::::::::::::::::::::::|")
-          menu_lnc = input("|:::   Escolha uma opção: ")
-          if menu_lnc == '1':
-            limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::        Lanches        :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::   Lanches Cadastrados: ", (cardapio["lanches"]))
-          elif menu_lnc == '2':
-            limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::      Buscar Lanche    :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            id_lnc = input("|::: Informe o ID do Lanche: ")
-            print()
-            if id_lnc in cardapio['lanches']:
-              print("|:::   Lanche Encontrado!!  :::|")
-              print("|:::   Lanche: ", cardapio['lanches'][id_lnc]['nome'])
-              print("|:::   Preço: ", cardapio['lanches'][id_lnc]['preco'])
-              print()
-            else:
-              print("|:::  Lanche Não Encontrado :::|")
-              print()
-          elif menu_lnc == '3':
-            limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::     Adicionar Lanche  :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            nome = input("|:::   Informe o Novo Lanche: ")
-            preco = float(input("|:::   Informe o Preço: "))
-            id_lnc = input("|:::   Informe um ID Para o Lanche: ")
-            print()
-            if id_lnc not in cardapio['lanches']:
-              cardapio['lanches'][id_lnc] = {"nome" : nome, "preco" : preco}
-              print("|:::::::::::::::::::::::::::::|")
-              print("|:::  Lanche Adicionado!!  :::|")
-              print("|:::::::::::::::::::::::::::::|")
-              print(cardapio['lanches'][id_lnc])
-              print()
-            else:
-              print("|:::   ID Enviado Já Está Em Uso!!   :::| ")
-          elif menu_lnc == '4':
-            limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::     Alterar Lanche    :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            id_lnc = input("|:::   Informe o ID do Lanche: ")
-            print()
-            if id_lnc in cardapio['lanches']:
-              print("|:::::::::::::::::::::::::::::|")
-              print("|::: Informações do  Lanche  :::|")
-              print("|:::::::::::::::::::::::::::::|")
-              print("|:::   Lanche: ", cardapio['lanches'][id_lnc]['nome'])
-              print("|:::   Preço: ", cardapio['lanches'][id_lnc]['preco'])
-              print()
-              print("|:::   Informe o que Deseja Alterar   :::|")
-              nome = input("|:::   Informe o Novo Nome: ")
-              preco = float(input("|:::   Informe o Novo Preço: "))
-              cardapio['lanches'][id_lnc]['nome'] = nome
-              cardapio['lanches'][id_lnc]['preco'] = preco
-              print()
-              print("|::: Lanche Alterado com Sucesso!! :::|")
-              print(cardapio['lanches'][id_lnc])
-            else:
-              print("|:::   Lanche não encontrado!! :::|")
-          elif menu_lnc == '5':
-            limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::     Excluir Lanche    :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            id_lnc = input("|:::   Informe o ID do Lanche: ")
-            print()
-            if id_lnc in cardapio['lanches']:
-              print("|:::::::::::::::::::::::::::::|")
-              print("|::: Informações do Lanche :::|")
-              print("|:::::::::::::::::::::::::::::|")
-              print("|:::   Lanche: ", cardapio['lanches'][id_lnc]['nome'])
-              print("|:::   Preço: ", cardapio['lanches'][id_lnc]['preco'])
-              print()
-              decisao = input("|:::   Tecle 's' Para Confirmar a Exclusão:  ").lower()
-              if decisao == 's':
-                del cardapio['lanches'][id_lnc]
-                print("|:::   Lanche Excluído Com Sucesso!!   :::|")
-              else:
-                print("|:::   Exclusão Cancelada!!   :::|")
-            else:
-              print("|:::   Lanche Não Encontrado!!   :::|")
-          elif menu_lnc == '0':
-            limpar()
-            menu()
-            print()
-          else:
-            invalida()
-          if menu_lnc != '0':
-            input("Pressione ENTER para continuar...")
+        crud_cardapio('lanches', 'nome')
       elif menu_card == '3':
-        menu_sbm = ''
-        while menu_sbm != '0':
-          limpar()
-          print("|:::::::::::::::::::::::::::::::::|")
-          print("|:::       Menu Sobremesa      :::|")
-          print("|:::::::::::::::::::::::::::::::::|")
-          print("|:::   1 - Lista Sobremesas    :::|")
-          print("|:::   2 - Buscar Sobremesa    :::|")
-          print("|:::   3 - Adicionar Sobremesa :::|")
-          print("|:::   4 - Alterar Sobremesa   :::|")
-          print("|:::   5 - Excluir Sobremesa   :::|")
-          print("|:::   0 - Menu Principal      :::|")
-          print("|:::::::::::::::::::::::::::::::::|")
-          menu_sbm = input("|:::   Escolha uma opção: ")
-          if menu_sbm == '1': 
-            limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::      Sobremesas       :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::   Sobremesas Cadastrados: ", (cardapio["sobremesas"]))
-          elif menu_sbm == '2':
-            limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::    Buscar Sobremesa   :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            id_sbm = input("|::: Informe o ID da Sobremesa: ")
-            print()
-            if id_sbm in cardapio['sobremesas']:
-              print("|:::   Sobremesa Encontrada!!  :::|")
-              print("|:::   Sobremesa: ", cardapio['sobremesas'][id_sbm]['nome'])
-              print("|:::   Preço: ", cardapio['sobremesas'][id_sbm]['preco'])
-              print()
-            else:
-              print("|:::  Sobremesa Não Encontrada :::|")
-              print()
-          elif menu_sbm == '3':
-            limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::  Adicionar Sobremesa  :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            nome = input("|:::   Informe a Nova Sobremesa: ")
-            preco = float(input("|:::   Informe o Preço: "))
-            id_sbm = input("|:::   Informe um ID Para a Sobremesa: ")
-            print()
-            if id_sbm not in cardapio['sobremesas']:
-              cardapio['sobremesas'][id_sbm] = {"nome" : nome, "preco" : preco}
-              print("|::::::::::::::::::::::::::::::::|")
-              print("|:::  Sobremesa Adicionado!!  :::|")
-              print("|::::::::::::::::::::::::::::::::|")
-              print(cardapio['sobremesas'][id_sbm])
-              print()
-            else:
-              print("|:::   ID Enviado Já Está Em Uso!!   :::| ")
-          elif menu_sbm == '4':
-            limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::   Alterar Sobremesa   :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            id_sbm = input("|:::   Informe o ID do Lanche: ")
-            print()
-            if id_sbm in cardapio['sobremesas']:
-              print("|:::::::::::::::::::::::::::::::::|")
-              print("|::: Informações da Sobremesa  :::|")
-              print("|:::::::::::::::::::::::::::::::::|")
-              print("|:::   Sobremesa: ", cardapio['sobremesas'][id_sbm]['nome'])
-              print("|:::   Preço: ", cardapio['sobremesas'][id_sbm]['preco'])
-              print()
-              print("|:::   Informe o que Deseja Alterar   :::|")
-              nome = input("|:::   Informe o Novo Nome: ")
-              preco = float(input("|:::   Informe o Novo Preço: "))
-              cardapio['sobremesas'][id_sbm]['nome'] = nome
-              cardapio['sobremesas'][id_sbm]['preco'] = preco
-              print()
-              print("|::: Sobremesa Alterada com Sucesso!! :::|")
-              print(cardapio['sobremesas'][id_sbm])
-            else:
-              print("|:::   Sobremesa não encontrada!! :::|")
-          elif menu_sbm == '5':
-            limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::    Excluir Sobremesa  :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            id_sbm = input("|:::   Informe o ID da Sobremesa: ")
-            print()
-            if id_sbm in cardapio['sobremesas']:
-              print("|::::::::::::::::::::::::::::::::|")
-              print("|::: Informações da Sobremesa :::|")
-              print("|::::::::::::::::::::::::::::::::|")
-              print("|:::   Sobremesa: ", cardapio['sobremesas'][id_sbm]['nome'])
-              print("|:::   Preço: ", cardapio['sobremesas'][id_sbm]['preco'])
-              print()
-              decisao = input("|:::   Tecle 's' Para Confirmar a Exclusão:  ").lower()
-              if decisao == 's':
-                del cardapio['sobremesas'][id_sbm]
-                print("|:::   Sobremesa Excluída Com Sucesso!!   :::|")
-              else:
-                print("|:::   Exclusão Cancelada!!   :::|")
-            else:
-              print("|:::   Sobremesa Não Encontrada!!   :::|")
-          elif menu_sbm == '0':
-            limpar()
-            menu()
-            print()
-          else:
-            invalida()
-          if menu_sbm != '0':
-             input("Pressione ENTER para continuar...")
+        crud_cardapio('sobremesas', 'nome')
       elif menu_card == '4':
-        menu_bbd = ''
-        while menu_bbd != '0':
-          limpar()
-          print("|:::::::::::::::::::::::::::::::::|")
-          print("|:::       Menu Bebidas        :::|")
-          print("|:::::::::::::::::::::::::::::::::|")
-          print("|:::   1 - Lista Bebidas       :::|")
-          print("|:::   2 - Buscar Bebida       :::|")
-          print("|:::   3 - Adicionar Bebida    :::|")
-          print("|:::   4 - Alterar Bebida      :::|")
-          print("|:::   5 - Excluir Bebida      :::|")
-          print("|:::   0 - Menu Principal      :::|")
-          print("|:::::::::::::::::::::::::::::::::|")
-          menu_bbd = input("|:::   Escolha uma opção: ")
-          if menu_bbd == '1':
-            limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::      Bebidas       :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::   Bebidas Cadastrados: ", (cardapio["bebidas"]))
-          elif menu_bbd == '2':
-            limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::      Buscar Bebida    :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            id_bbd = input("|::: Informe o ID da Bebida: ")
-            print()
-            if id_bbd in cardapio['bebidas']:
-              print("|:::   Bebida Encontrada!!  :::|")
-              print("|:::   Bebida: ", cardapio['bebidas'][id_bbd]['nome'])
-              print("|:::   Preço: ", cardapio['bebidas'][id_bbd]['preco'])
-              print()
-            else:
-              print("|:::  Bebida Não Encontrada :::|")
-              print()
-          elif menu_bbd == '3':
-            limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::    Adicionar Bebida   :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            nome = input("|:::   Informe a Nova Bebida: ")
-            preco = float(input("|:::   Informe o Preço: "))
-            id_bbd = input("|:::   Informe um ID Para a Bebida: ")
-            print()
-            if id_bbd not in cardapio['bebidas']:
-              cardapio['bebidas'][id_bbd] = {"nome" : nome, "preco" : preco}
-              print("|::::::::::::::::::::::::::::::::|")
-              print("|:::  Bebida Adicionada!!  :::|")
-              print("|::::::::::::::::::::::::::::::::|")
-              print(cardapio['bebidas'][id_bbd])
-              print()
-            else:
-              print("|:::   ID Enviado Já Está Em Uso!!   :::| ")
-          elif menu_bbd == '4':
-            limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::     Alterar Bebida    :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            id_bbd = input("|:::   Informe o ID da Bebida: ")
-            print()
-            if id_bbd in cardapio['bebidas']:
-              print("|:::::::::::::::::::::::::::::::::|")
-              print("|:::   Informações da Bebida   :::|")
-              print("|:::::::::::::::::::::::::::::::::|")
-              print("|:::   Bebida: ", cardapio['bebidas'][id_bbd]['nome'])
-              print("|:::   Preço: ", cardapio['bebidas'][id_bbd]['preco'])
-              print()
-              print("|:::   Informe o que Deseja Alterar   :::|")
-              nome = input("|:::   Informe o Novo Nome: ")
-              preco = float(input("|:::   Informe o Novo Preço: "))
-              cardapio['bebidas'][id_bbd]['nome'] = nome
-              cardapio['bebidas'][id_bbd]['preco'] = preco
-              print()
-              print("|::: Bebida Alterada com Sucesso!! :::|")
-              print(cardapio['bebidas'][id_bbd])
-            else:
-              print("|:::   Bebida não encontrada!! :::|")
-          elif menu_bbd == '5':
-            limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::     Excluir Bebida    :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            id_bbd = input("|:::   Informe o ID da Bebida: ")
-            print()
-            if id_bbd in cardapio['bebidas']:
-              print("|::::::::::::::::::::::::::::::::|")
-              print("|:::   Informações da Bebida  :::|")
-              print("|::::::::::::::::::::::::::::::::|")
-              print("|:::   Bebida: ", cardapio['bebidas'][id_bbd]['nome'])
-              print("|:::   Preço: ", cardapio['bebidas'][id_bbd]['preco'])
-              print()
-              decisao = input("|:::   Tecle 's' Para Confirmar a Exclusão:  ").lower()
-              if decisao == 's':
-                del cardapio['bebidas'][id_bbd]
-                print("|:::   Bebida Excluída Com Sucesso!!   :::|")
-              else:
-                print("|:::   Exclusão Cancelada!!   :::|")
-            else:
-              print("|:::   Bebida Não Encontrada!!   :::|")
-          elif menu_bbd == '0':
-            limpar()
-            menu()
-          else:
-            invalida()
-          if menu_bbd != '0':
-             input("Pressione ENTER para continuar...")
+        crud_cardapio("bebidas", "nome")
       elif menu_card == '0':
         limpar()
         menu()
