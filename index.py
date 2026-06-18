@@ -1,5 +1,7 @@
-import os   #Versao 2
-def linha():
+import os   #Versao 3
+import pickle
+
+def traçado():
     print("|:::::::::::::::::::::::::::::|")
 def limpar():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -129,13 +131,140 @@ def crud_cardapio(categoria, campo_nome):
             invalida()
           if menu_item != '0':
             input("Pressione ENTER para continuar...")
+def crud_estoque(categoria, campo_nome):
+        menu_item = ''
+        while menu_item != '0':
+          limpar()
+          print("|:::::::::::::::::::::::::::::|")
+          print(f"|::: {categoria.upper():^21} :::|")
+          print("|:::::::::::::::::::::::::::::|")
+          print("|:::   1 - Listar          :::|")
+          print("|:::   2 - Buscar          :::|")
+          print("|:::   3 - Adicionar       :::|")
+          print("|:::   4 - Alterar         :::|")
+          print("|:::   5 - Excluir         :::|")
+          print("|:::   0 - Menu Principal  :::|")
+          print("|:::::::::::::::::::::::::::::|")
+          menu_item = input("|:::   Escolha uma opção: ")
+          if menu_item == '1':
+            limpar()
+            print("|:::::::::::::::::::::::::::::|")
+            print(f"|::: {categoria.upper():^21} :::|")
+            print("|:::::::::::::::::::::::::::::|")
+            print(estoque[categoria])
+            print()
+          elif menu_item == '2':
+            limpar()
+            print("|:::::::::::::::::::::::::::::|")
+            print("|:::      Buscar Item      :::|")
+            print("|:::::::::::::::::::::::::::::|")
+            id_item = input("|::: Informe o ID do Item: ")
+            print()
+            if id_item in estoque[categoria]:
+              print("|:::   Item Encontrada!!  :::|")
+              print("|:::   item: ", estoque[categoria][id_item][campo_nome])
+              print("|:::   Disponivel: ", estoque[categoria][id_item]['estoque'])
+              print()
+            else:
+              print("|:::  Item Não Encontrado :::|")
+              print()
+          elif menu_item == '3':
+            limpar()
+            print("|:::::::::::::::::::::::::::::|")
+            print("|:::     Adicionar Item    :::|")
+            print("|:::::::::::::::::::::::::::::|")
+            nome = input("|::: Nome do item: ")
+            disp = input("|::: Tem estoque? (s/n): ").lower()
+            id_item = input("|::: Informe um ID: ")
+            if disp == 's':
+                disponibilidade = True
+            else:
+                disponibilidade = False
+            if id_item not in estoque[categoria]:
+                estoque[categoria][id_item] = {
+                    "nome": nome,
+                    "estoque": disponibilidade
+                }
+                print()
+                print("|::: Item Adicionado!! :::|")
+          elif menu_item == '4':
+            limpar()
+            print("|:::::::::::::::::::::::::::::|")
+            print("|:::      Alterar Item     :::|")
+            print("|:::::::::::::::::::::::::::::|")
+            id_item = input("|::: Informe o ID: ")
+            if id_item in estoque[categoria]:
+                print()
+                print("|::: Item Encontrado!! :::|")
+                print("|::: Nome:",
+                      estoque[categoria][id_item][campo_nome])
+                print("|::: Estoque:",
+                      estoque[categoria][id_item]['estoque'])
+                print()
+                nome = input("|::: Novo Nome: ")
+                disp = input("|::: Tem estoque? (s/n): ").lower()
+                if disp == 's':
+                    disponibilidade = True
+                else:
+                    disponibilidade = False
+                estoque[categoria][id_item][campo_nome] = nome
+                estoque[categoria][id_item]['estoque'] = disponibilidade
+                print()
+                print("|::: Item Atualizado!! :::|")
+            else:
+                print("|::: Item Não Encontrado! :::|")
+          elif menu_item == '5':
+            limpar()
+            print("|:::::::::::::::::::::::::::::|")
+            print("|:::      Excluir Item     :::|")
+            print("|:::::::::::::::::::::::::::::|")
+            id_item = input("|::: Informe o ID: ")
+            if id_item in estoque['secos']:
+                print()
+                print("|::: Nome:",
+                      estoque[categoria][id_item][campo_nome])
+                decisao = input(
+                    "|::: Confirmar exclusão? (s/n): ").lower()
+                if decisao == 's':
+                    del estoque[categoria][id_item]
+                    print("|::: Item Excluído!! :::|")
+                else:
+                    print("|::: Exclusão Cancelada :::|")
+            else:
+                print("|::: Item Não Encontrado! :::|")
+          elif menu_item == '0':
+            limpar()
+            menu()
+          else:
+            invalida()
+          if menu_item != '0':
+            input("Pressione ENTER para continuar...")
    
-funcionarios = {
-  'f123' : ["Juninho Forró", "67 99996767", "juninho@forrozeiro123.com", "Garçom", 6767.67],
-  'f898' : ["Severina Guerra", "19 99093939", "severina@guerradecanudos.com", "Atendente", 1896.00],
-  'f656' : ["Chico Petisco", "89 40028922", "chico@petisco.com", "Cozinheiro", 2026.00],
-  'f456' : ["Neymar Jr.", "83 201120215", "Neymar@Junio.com", "Pizzaiolo", 1621.00]
-}
+funcionarios = {}
+try:
+   arq_funcionarios = open("funcionarios.csv", "rt", encoding="utf-8")
+   for linha in arq_funcionarios:
+       linha = linha.strip()
+       if linha:
+          campos = linha.split(",")
+          id_fun = campos[0]
+          nome = campos[1]
+          fone = campos[2]
+          email = campos[3]
+          cargo = campos[4]
+          funcionarios[id_fun] = [nome, fone, email, cargo]
+   arq_funcionarios.close()
+except:
+  funcionarios = {
+    'f123' : ["Juninho Forró", "67 99996767", "juninho@forrozeiro123.com", "Garçom"],
+    'f898' : ["Severina Guerra", "19 99093939", "severina@guerradecanudos.com", "Atendente"],
+    'f656' : ["Chico Petisco", "89 40028922", "chico@petisco.com", "Cozinheiro"],
+    'f456' : ["Neymar Jr.", "83 201120215", "Neymar@Junio.com", "Pizzaiolo"]
+  }
+  arq_funcionarios = open("funcionarios.csv", "wt", encoding="utf-8")
+  for id_fun, dados in funcionarios.items():
+      arq_funcionarios.write(f"{id_fun},{dados[0]},{dados[1]},{dados[2]},{dados[3]}\n")
+  arq_funcionarios.close
 cardapio = {
   'pizzas' : {
     "p001" : {
@@ -218,26 +347,26 @@ while menu_prin != "0":
   limpar()
   print("|' ' ' ' ' ' ' ' ' ' ' ' ' ' '|")     #Primeira versão do layout, tentei fazer uma caixa de pizza kk
   print("|:                           :|")     # OBS: Alterar os "Resps" para um identificador melhor 
-  linha()
-  linha()
+  traçado()
+  traçado()
   print("|:::::-------------------:::::|")
   print("|::::/                   \\::::|")
   print("|:::|   Projeto PyPizza   |:::|")
   print("|::::\\                   /::::|")
   print("|::::::-----------------::::::|")
-  linha()
-  linha()
+  traçado()
+  traçado()
   print("|:                           :|")
   print("|. . . . . . . . . . . . . . .|")
   print()
-  linha()
+  traçado()
   print("|:::   1 - Funcionários    :::|")
   print("|:::   2 - Cardápio        :::|")
   print("|:::   3 - Estoque         :::|")
   print("|:::   4 - Relátorio       :::|")
   print("|:::   5 - Informações     :::|")
   print("|:::   0 - Sair            :::|")
-  linha()
+  traçado()
  
   menu_prin = input("|:::   Escolha uma opção: ")
 
@@ -246,15 +375,15 @@ while menu_prin != "0":
     while menu_fun != '0':
       limpar()
       print()
-      linha()
+      traçado()
       print("|:::      FUNCIONÁRIOS     :::|")
-      linha()
+      traçado()
       print("|:::   1 - Cadastrar       :::|")
       print("|:::   2 - Pesquisar       :::|")
       print("|:::   3 - Alterar         :::|")
       print("|:::   4 - Excluir         :::|")
       print("|:::   0 - Menu Principal  :::|")
-      linha()
+      traçado()
       menu_fun = input("|:::   Escolha uma opção: ")
       print()
       if menu_fun == '1':
@@ -269,11 +398,10 @@ while menu_prin != "0":
         fone = input("|:::  Telefone: ")
         email = input("|:::  Email: ")
         cargo = input("|:::  Cargo: ")
-        sala = float(input("|:::  Salário: "))
         id_fun = input("|:::  Id: ")
         print()
         if id_fun not in funcionarios:
-          funcionarios[id_fun] = [nome, fone, email, cargo, sala]
+          funcionarios[id_fun] = [nome, fone, email, cargo]
           print("|:::   Funcionário Cadastrado Com Sucesso!!!   :::|")
           print(funcionarios)
         else:
@@ -294,7 +422,6 @@ while menu_prin != "0":
           print("|::: Telefone: ", funcionarios[id_fun][1])
           print("|::: Email: ", funcionarios[id_fun][2])
           print("|::: Cargo: ", funcionarios[id_fun][3])
-          print("|::: Salário: ", funcionarios[id_fun][4])
           print()
         else:
           print("|:::   Funcionário Não Encontrado!!   :::|")
@@ -312,15 +439,13 @@ while menu_prin != "0":
           print("|::: Telefone: ", funcionarios[id_fun][1])
           print("|::: Email: ", funcionarios[id_fun][2])
           print("|::: Cargo: ", funcionarios[id_fun][3])
-          print("|::: Salário: ", funcionarios[id_fun][4])
           print()
           print("|:::   Informe o Que Deseja Alterar: ")
           nome = input("|:::  Novo Nome: ")
           fone = input("|:::  Novo Telefone: ")
           email = input("|:::  Novo Email: ")
           cargo = input("|:::  Novo Cargo: ")
-          sala = float(input("|:::  Novo Salário: "))
-          funcionarios[id_fun] = [nome, fone, email,cargo, sala]
+          funcionarios[id_fun] = [nome, fone, email,cargo]
           print()
           print("|:::   Dados Alterados Com Sucesso!!!   :::|")
           print()
@@ -343,7 +468,6 @@ while menu_prin != "0":
           print("|::: Telefone: ", funcionarios[id_fun][1])
           print("|::: Email: ", funcionarios[id_fun][2])
           print("|::: Cargo: ", funcionarios[id_fun][3])
-          print("|::: Salário: ", funcionarios[id_fun][4])
           print()
           decisao = input("|:::   Tecle 's' Para Confirmar a Exclusão:  ").lower()
           if decisao == 's':
@@ -410,442 +534,13 @@ while menu_prin != "0":
       menu_estq = input("|:::   Escolha uma opção: ")
       print()
       if menu_estq == '1':
-        menu_frios = ''
-        while menu_frios != '0':
-            limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::       MENU FRIOS      :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::   1 - Listar Frios    :::|")
-            print("|:::   2 - Buscar Item     :::|")
-            print("|:::   3 - Adicionar Item  :::|")
-            print("|:::   4 - Atualizar Item  :::|")
-            print("|:::   5 - Excluir Item    :::|")
-            print("|:::   0 - Menu Principal  :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            menu_frios = input("|::: Escolha uma opção: ")
-            if menu_frios == '1':
-                limpar()
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::         FRIOS         :::|")
-                print("|:::::::::::::::::::::::::::::|")
-                print(estoque['frios'])
-            elif menu_frios == '2':
-                limpar()
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::      Buscar Item      :::|")
-                print("|:::::::::::::::::::::::::::::|")
-                id_item = input("|::: Informe o ID: ")
-                if id_item in estoque['frios']:
-                    print()
-                    print("|:::   Item Encontrado!!   :::|")
-                    print("|::: Nome:",
-                          estoque['frios'][id_item]['nome'])
-                    print("|::: Estoque:",
-                          estoque['frios'][id_item]['estoque'])
-                else:
-                    print("|::: Item Não Encontrado! :::|")
-            elif menu_frios == '3':
-                limpar()
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::     Adicionar Item    :::|")
-                print("|:::::::::::::::::::::::::::::|")
-                nome = input("|::: Nome do item: ")
-                disp = input("|::: Tem estoque? (s/n): ").lower()
-                id_item = input("|::: Informe um ID: ")
-                if disp == 's':
-                    disponibilidade = True
-                else:
-                    disponibilidade = False
-                if id_item not in estoque['frios']:
-                    estoque['frios'][id_item] = {
-                        "nome": nome,
-                        "estoque": disponibilidade
-                    }
-                    print()
-                    print("|::: Item Adicionado!! :::|")
-                else:
-                    print("|::: ID já existe!! :::|")
-            elif menu_frios == '4':
-                limpar()
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::      Alterar Item     :::|")
-                print("|:::::::::::::::::::::::::::::|")
-                id_item = input("|::: Informe o ID: ")
-                if id_item in estoque['frios']:
-                    print()
-                    print("|::: Item Encontrado!! :::|")
-                    print("|::: Nome:",
-                          estoque['frios'][id_item]['nome'])
-                    print("|::: Estoque:",
-                          estoque['frios'][id_item]['estoque'])
-                    print()
-                    nome = input("|::: Novo Nome: ")
-                    disp = input("|::: Tem estoque? (s/n): ").lower()
-                    if disp == 's':
-                        disponibilidade = True
-                    else:
-                        disponibilidade = False
-                    estoque['frios'][id_item]['nome'] = nome
-                    estoque['frios'][id_item]['estoque'] = disponibilidade
-                    print()
-                    print("|::: Item Atualizado!! :::|")
-                else:
-                    print("|::: Item Não Encontrado! :::|")
-            elif menu_frios == '5':
-                limpar()
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::      Excluir Item     :::|")
-                print("|:::::::::::::::::::::::::::::|")
-                id_item = input("|::: Informe o ID: ")
-                if id_item in estoque['frios']:
-                    print()
-                    print("|::: Nome:",
-                          estoque['frios'][id_item]['nome'])
-                    decisao = input(
-                        "|::: Confirmar exclusão? (s/n): ").lower()
-                    if decisao == 's':
-                        del estoque['frios'][id_item]
-                        print("|::: Item Excluído!! :::|")
-                    else:
-                        print("|::: Exclusão Cancelada :::|")
-                else:
-                    print("|::: Item Não Encontrado! :::|")
-            elif menu_frios == '0':
-              limpar()
-              menu()
-              print()
-            else:
-              invalida()
-            if menu_frios != '0':
-              input("Pressione ENTER para continuar...")
+        crud_estoque('frios', 'nome')
       elif menu_estq == '2':
-        menu_secos = ''
-        while menu_secos != '0':
-            limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::       MENU SECOS      :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::   1 - Listar Secos    :::|")
-            print("|:::   2 - Buscar Item     :::|")
-            print("|:::   3 - Adicionar Item  :::|")
-            print("|:::   4 - Atualizar Item  :::|")
-            print("|:::   5 - Excluir Item    :::|")
-            print("|:::   0 - Menu Principal  :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            menu_secos = input("|::: Escolha uma opção: ")
-            if menu_secos == '1':
-                limpar()
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::         SECOS         :::|")
-                print("|:::::::::::::::::::::::::::::|")
-                print(estoque['secos'])
-            elif menu_secos == '2':
-                limpar()
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::      Buscar Item      :::|")
-                print("|:::::::::::::::::::::::::::::|")
-                id_item = input("|::: Informe o ID: ")
-                if id_item in estoque['secos']:
-                    print()
-                    print("|:::   Item Encontrado!!   :::|")
-                    print("|::: Nome:",
-                          estoque['secos'][id_item]['nome'])
-                    print("|::: Estoque:",
-                          estoque['secos'][id_item]['estoque'])
-                else:
-                    print("|::: Item Não Encontrado! :::|")
-            elif menu_secos == '3':
-                limpar()
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::     Adicionar Item    :::|")
-                print("|:::::::::::::::::::::::::::::|")
-                nome = input("|::: Nome do item: ")
-                disp = input("|::: Tem estoque? (s/n): ").lower()
-                id_item = input("|::: Informe um ID: ")
-                if disp == 's':
-                    disponibilidade = True
-                else:
-                    disponibilidade = False
-                if id_item not in estoque['secos']:
-                    estoque['secos'][id_item] = {
-                        "nome": nome,
-                        "estoque": disponibilidade
-                    }
-                    print()
-                    print("|::: Item Adicionado!! :::|")
-                else:
-                    print("|::: ID já existe!! :::|")
-            elif menu_secos == '4':
-                limpar()
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::      Alterar Item     :::|")
-                print("|:::::::::::::::::::::::::::::|")
-                id_item = input("|::: Informe o ID: ")
-                if id_item in estoque['secos']:
-                    print()
-                    print("|::: Item Encontrado!! :::|")
-                    print("|::: Nome:",
-                          estoque['secos'][id_item]['nome'])
-                    print("|::: Estoque:",
-                          estoque['secos'][id_item]['estoque'])
-                    print()
-                    nome = input("|::: Novo Nome: ")
-                    disp = input("|::: Tem estoque? (s/n): ").lower()
-                    if disp == 's':
-                        disponibilidade = True
-                    else:
-                        disponibilidade = False
-                    estoque['secos'][id_item]['nome'] = nome
-                    estoque['secos'][id_item]['estoque'] = disponibilidade
-                    print()
-                    print("|::: Item Atualizado!! :::|")
-                else:
-                    print("|::: Item Não Encontrado! :::|")
-            elif menu_secos == '5':
-                limpar()
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::      Excluir Item     :::|")
-                print("|:::::::::::::::::::::::::::::|")
-                id_item = input("|::: Informe o ID: ")
-                if id_item in estoque['secos']:
-                    print()
-                    print("|::: Nome:",
-                          estoque['secos'][id_item]['nome'])
-                    decisao = input(
-                        "|::: Confirmar exclusão? (s/n): ").lower()
-                    if decisao == 's':
-                        del estoque['secos'][id_item]
-                        print("|::: Item Excluído!! :::|")
-                    else:
-                        print("|::: Exclusão Cancelada :::|")
-                else:
-                    print("|::: Item Não Encontrado! :::|")
-            elif menu_secos == '0':
-                limpar()
-                menu()
-            else:
-                invalida()
-            if menu_secos != '0':
-                input("Pressione ENTER para continuar...")
+        crud_estoque('secos', 'nome')
       elif menu_estq == '3':
-        menu_cond = ''
-        while menu_cond != '0':
-            limpar()
-            print("|::::::::::::::::::::::::::::::::|")
-            print("|:::      MENU CONDIMENTOS    :::|")
-            print("|::::::::::::::::::::::::::::::::|")
-            print("|:::   1 - Listar Condimentos :::|")
-            print("|:::   2 - Buscar Item        :::|")
-            print("|:::   3 - Adicionar Item     :::|")
-            print("|:::   4 - Atualizar Item     :::|")
-            print("|:::   5 - Excluir Item       :::|")
-            print("|:::   0 - Menu Principal     :::|")
-            print("|::::::::::::::::::::::::::::::::|")
-            menu_cond = input("|::: Escolha uma opção: ")
-            if menu_cond == '1':
-                limpar()
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::      CONDIMENTOS      :::|")
-                print("|:::::::::::::::::::::::::::::|")
-                print(estoque['condimentos'])
-            elif menu_cond == '2':
-                limpar()
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::      Buscar Item      :::|")
-                print("|:::::::::::::::::::::::::::::|")
-                id_item = input("|::: Informe o ID: ")
-                if id_item in estoque['condimentos']:
-                    print()
-                    print("|:::   Item Encontrado!!   :::|")
-                    print("|::: Nome:",
-                          estoque['condimentos'][id_item]['nome'])
-                    print("|::: Estoque:",
-                          estoque['condimentos'][id_item]['estoque'])
-                else:
-                    print("|::: Item Não Encontrado! :::|")
-            elif menu_cond == '3':
-                limpar()
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::     Adicionar Item    :::|")
-                print("|:::::::::::::::::::::::::::::|")
-                nome = input("|::: Nome do item: ")
-                disp = input("|::: Tem estoque? (s/n): ").lower()
-                id_item = input("|::: Informe um ID: ")
-                if disp == 's':
-                    disponibilidade = True
-                else:
-                    disponibilidade = False
-                if id_item not in estoque['condimentos']:
-                    estoque['condimentos'][id_item] = {
-                        "nome": nome,
-                        "estoque": disponibilidade
-                    }
-                    print()
-                    print("|::: Item Adicionado!! :::|")
-                else:
-                    print("|::: ID já existe!! :::|")
-            elif menu_cond == '4':
-                limpar()
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::      Alterar Item     :::|")
-                print("|:::::::::::::::::::::::::::::|")
-                id_item = input("|::: Informe o ID: ")
-                if id_item in estoque['condimentos']:
-                    print()
-                    print("|::: Item Encontrado!! :::|")
-                    print("|::: Nome:",
-                          estoque['condimentos'][id_item]['nome'])
-                    print("|::: Estoque:",
-                          estoque['condimentos'][id_item]['estoque'])
-                    print()
-                    nome = input("|::: Novo Nome: ")
-                    disp = input("|::: Tem estoque? (s/n): ").lower()
-                    if disp == 's':
-                        disponibilidade = True
-                    else:
-                        disponibilidade = False
-                    estoque['condimentos'][id_item]['nome'] = nome
-                    estoque['condimentos'][id_item]['estoque'] = disponibilidade
-                    print()
-                    print("|::: Item Atualizado!! :::|")
-                else:
-                    print("|::: Item Não Encontrado! :::|")
-            elif menu_cond == '5':
-                limpar()
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::      Excluir Item     :::|")
-                print("|:::::::::::::::::::::::::::::|")
-                id_item = input("|::: Informe o ID: ")
-                if id_item in estoque['condimentos']:
-                    print()
-                    print("|::: Nome:",
-                          estoque['condimentos'][id_item]['nome'])
-                    decisao = input(
-                        "|::: Confirmar exclusão? (s/n): ").lower()
-                    if decisao == 's':
-                        del estoque['condimentos'][id_item]
-                        print("|::: Item Excluído!! :::|")
-                    else:
-                        print("|::: Exclusão Cancelada :::|")
-                else:
-                    print("|::: Item Não Encontrado! :::|")
-            elif menu_cond == '0':
-                limpar()
-                menu()
-            else:
-                invalida()
-            if menu_cond != '0':
-                input("Pressione ENTER para continuar...")
+        crud_estoque('condimentos', 'nome')
       elif menu_estq == '4':
-        menu_beb = ''
-        while menu_beb != '0':
-            limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::      MENU BEBIDAS     :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::   1 - Listar Bebidas  :::|")
-            print("|:::   2 - Buscar Item     :::|")
-            print("|:::   3 - Adicionar Item  :::|")
-            print("|:::   4 - Atualizar Item  :::|")
-            print("|:::   5 - Excluir Item    :::|")
-            print("|:::   0 - Menu Principal  :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            menu_beb = input("|::: Escolha uma opção: ")
-            if menu_beb == '1':
-                limpar()
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::        BEBIDAS        :::|")
-                print("|:::::::::::::::::::::::::::::|")
-                print(estoque['bebidas'])
-            elif menu_beb == '2':
-                limpar()
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::      Buscar Item      :::|")
-                print("|:::::::::::::::::::::::::::::|")
-                id_item = input("|::: Informe o ID: ")
-                if id_item in estoque['bebidas']:
-                    print()
-                    print("|:::   Item Encontrado!!   :::|")
-                    print("|::: Nome:",
-                          estoque['bebidas'][id_item]['nome'])
-                    print("|::: Estoque:",
-                          estoque['bebidas'][id_item]['estoque'])
-                else:
-                    print("|::: Item Não Encontrado! :::|")
-            elif menu_beb == '3':
-                limpar()
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::     Adicionar Item    :::|")
-                print("|:::::::::::::::::::::::::::::|")
-                nome = input("|::: Nome do item: ")
-                disp = input("|::: Tem estoque? (s/n): ").lower()
-                id_item = input("|::: Informe um ID: ")
-                if disp == 's':
-                    disponibilidade = True
-                else:
-                    disponibilidade = False
-                if id_item not in estoque['bebidas']:
-                    estoque['bebidas'][id_item] = {
-                        "nome": nome,
-                        "estoque": disponibilidade
-                    }
-                    print()
-                    print("|::: Item Adicionado!! :::|")
-                else:
-                    print("|::: ID já existe!! :::|")
-            elif menu_beb == '4':
-                limpar()
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::      Alterar Item     :::|")
-                print("|:::::::::::::::::::::::::::::|")
-                id_item = input("|::: Informe o ID: ")
-                if id_item in estoque['bebidas']:
-                    print()
-                    print("|::: Item Encontrado!! :::|")
-                    print("|::: Nome:",
-                          estoque['bebidas'][id_item]['nome'])
-                    print("|::: Estoque:",
-                          estoque['bebidas'][id_item]['estoque'])
-                    print()
-                    nome = input("|::: Novo Nome: ")
-                    disp = input("|::: Tem estoque? (s/n): ").lower()
-                    if disp == 's':
-                        disponibilidade = True
-                    else:
-                        disponibilidade = False
-                    estoque['bebidas'][id_item]['nome'] = nome
-                    estoque['bebidas'][id_item]['estoque'] = disponibilidade
-                    print()
-                    print("|::: Item Atualizado!! :::|")
-                else:
-                    print("|::: Item Não Encontrado! :::|")
-            elif menu_beb == '5':
-                limpar()
-                print("|:::::::::::::::::::::::::::::|")
-                print("|:::      Excluir Item     :::|")
-                print("|:::::::::::::::::::::::::::::|")
-                id_item = input("|::: Informe o ID: ")
-                if id_item in estoque['bebidas']:
-                    print()
-                    print("|::: Nome:",
-                          estoque['bebidas'][id_item]['nome'])
-                    decisao = input(
-                        "|::: Confirmar exclusão? (s/n): ").lower()
-                    if decisao == 's':
-                        del estoque['bebidas'][id_item]
-                        print("|::: Item Excluído!! :::|")
-                    else:
-                        print("|::: Exclusão Cancelada :::|")
-                else:
-                    print("|::: Item Não Encontrado! :::|")
-            elif menu_beb == '0':
-                limpar()
-                menu()
-            else:
-                invalida()
-            if menu_beb != '0':
-                input("Pressione ENTER para continuar...")
+        crud_estoque('bebidas', 'nome')
       elif menu_estq == '0':
         limpar()
         menu()  
@@ -853,7 +548,6 @@ while menu_prin != "0":
       else:
         invalida()
       print()
-      input("Pressione 'ENTER' para continuar")
   elif menu_prin == '4':
     #menu_rlt = ''#
    # while menu_rlt != "0":#
@@ -906,4 +600,7 @@ print("|:::     Até Mais !!  ;)   :::|")
 print("|:::::::::::::::::::::::::::::|")
 print("Fim do Programa!!!")
 
-
+arq_funcionarios = open("funcionarios.csv", "wt", encoding="utf-8")
+for id_fun, dados in funcionarios.items():
+    arq_funcionarios.write(f"{id_fun},{dados[0]},{dados[1]},{dados[2]},{dados[3]}\n")
+arq_funcionarios.close()
