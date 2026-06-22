@@ -1,7 +1,8 @@
 import os   #Versao 3
 import pickle
-
-def traçado():
+from funcionarios import menu_funci
+import funcoes
+def tracado():
     print("|:::::::::::::::::::::::::::::|")
 def limpar():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -23,7 +24,6 @@ def invalida():
     print("|:::  E Escolha Uma Opção  :::|")
     print("|:::        Válida!!!      :::|")
     print("|:::::::::::::::::::::::::::::|")
-
 def crud_cardapio(categoria, campo_nome):
         menu_item = ''
         while menu_item != '0':
@@ -54,8 +54,8 @@ def crud_cardapio(categoria, campo_nome):
             id_item = input("|::: Informe o ID do Item: ")
             print()
             if id_item in cardapio[categoria]:
-              print("|:::   Item Encontrada!!  :::|")
-              print("|:::   Sabor: ", cardapio[categoria][id_item][campo_nome])
+              print("|:::   Item Encontrado!!  :::|")
+              print("|:::   Nome: ", cardapio[categoria][id_item][campo_nome])
               print("|:::   Preço: ", cardapio[categoria][id_item]['preco'])
               print()
             else:
@@ -87,10 +87,8 @@ def crud_cardapio(categoria, campo_nome):
             id_item = input("|:::   Informe o ID: ")
             print()
             if id_item in cardapio[categoria]:
-              print("|:::::::::::::::::::::::::::::|")
-              print("|::: Informações do Item   :::|")
-              print("|:::::::::::::::::::::::::::::|")
-              print("|:::", campo_nome.capitalize(), cardapio[categoria][id_item][campo_nome])
+              print("|:::   Item Encontrado!!  :::|")
+              print("|:::   Nome: ", cardapio[categoria][id_item][campo_nome])
               print("|:::   Preço: ", cardapio[categoria][id_item]['preco'])
               print("|:::   Informe o que Deseja Alterar   :::|")
               nome = input(f"|:::   Novo {campo_nome}:  ")
@@ -239,253 +237,216 @@ def crud_estoque(categoria, campo_nome):
             invalida()
           if menu_item != '0':
             input("Pressione ENTER para continuar...")
-   
-funcionarios = {}
-try:
-   arq_funcionarios = open("funcionarios.csv", "rt", encoding="utf-8")
-   for linha in arq_funcionarios:
-       linha = linha.strip()
-       if linha:
-          campos = linha.split(",")
-          id_fun = campos[0]
-          nome = campos[1]
-          fone = campos[2]
-          email = campos[3]
-          cargo = campos[4]
-          funcionarios[id_fun] = [nome, fone, email, cargo]
-   arq_funcionarios.close()
-except:
-  funcionarios = {
-    'f123' : ["Juninho Forró", "67 99996767", "juninho@forrozeiro123.com", "Garçom"],
-    'f898' : ["Severina Guerra", "19 99093939", "severina@guerradecanudos.com", "Atendente"],
-    'f656' : ["Chico Petisco", "89 40028922", "chico@petisco.com", "Cozinheiro"],
-    'f456' : ["Neymar Jr.", "83 201120215", "Neymar@Junio.com", "Pizzaiolo"]
-  }
-  arq_funcionarios = open("funcionarios.csv", "wt", encoding="utf-8")
-  for id_fun, dados in funcionarios.items():
-      arq_funcionarios.write(f"{id_fun},{dados[0]},{dados[1]},{dados[2]},{dados[3]}\n")
-  arq_funcionarios.close
-cardapio = {
-  'pizzas' : {
-    "p001" : {
-      "sabor" : "calabresa",
-      "preco" : 40.00
-    },
-    'p002' : {
-      "sabor" : "margarita",
-      "preco" : 45.00
-    },
-    'p003' : {
-      "sabor" : "portuguesa",
-      "preco" : 40.00
-    },
-    'p004' : {
-      "sabor" : "carne de sol",
-      "preco" : 35.00
+def recupera_funcionarios():   
+  funcionarios = {}
+  try:
+    arq_funcionarios = open("funcionarios.csv", "rt", encoding="utf-8")
+    for linha in arq_funcionarios:
+        linha = linha.strip()
+        if linha:
+            campos = linha.split(",")
+            id_fun = campos[0]
+            nome = campos[1]
+            fone = campos[2]
+            email = campos[3]
+            cargo = campos[4]
+            nascimento = campos[5]
+            cpf = campos[6]
+            funcionarios[id_fun] = [nome, fone, email, cargo, nascimento, cpf]
+    arq_funcionarios.close()
+  except:
+    funcionarios = {
+      'f123' : ["Juninho Forró", "67 99996767", "juninho@forrozeiro123.com", "Garçom", "13/04/2002", "43435678655"],
+      'f898' : ["Severina Guerra", "19 99093939", "severina@guerradecanudos.com", "Atendente", "11/11/1990", "23456765432"],
+      'f656' : ["Chico Petisco", "89 40028922", "chico@petisco.com", "Cozinheiro", "23/08/2006", "115679809876"],
+      'f456' : ["Neymar Jr.", "83 201120215", "Neymar@Junio.com", "Pizzaiolo", "23/11/1999", "67676767676"]
     }
-  },
-  'lanches' : {
-    'l001' : {
-    "nome" : "hamburguer",
-    "preco" : 17.00
-    },
-    'l002' : {
-      'nome' : "batata-frita",
-      'preco' : 12.00
-    }
-  },
-  'sobremesas' : {
-    's001' : {
-      "nome" : "pudim",
-      "preco" : 7.00
-    },
-    's002' : {
-      'nome' : 'banana-split',
-      'preco' : 10.00 
-    }
-  },
-  'bebidas' : {
-    'b001' : {
-      "nome" : "coca-cola 2l",
-      "preco" : 12.00
-    },
-    'b002' : {
-      "nome" : "guaraná 2l",
-      "preco": 11.00
-    },
-  }
-}
-estoque = {
-  'frios' : {
-    'fr001' : {
-      "nome" : "calabresa",
-      "estoque" : True
-    }
-  },
-  'secos' : {
-    'sc001' : {
-      "nome" : "farinha de trigo",
-      "estoque" : True
-    }
-  },
-  'condimentos' : {
-    'cd001' : {
-      "nome" : "orégano",
-      "estoque" : True
-    }
-  },
-  'bebidas' : {
-    'bd001' : {
-      "nome" : "coca-cola",
-      "estoque" : True
-    }
-  } 
+    arq_funcionarios = open("funcionarios.csv", "wt", encoding="utf-8")
+    for id_fun, dados in funcionarios.items():
+        arq_funcionarios.write(f"{id_fun},{dados[0]},{dados[1]},{dados[2]},{dados[3]},{dados[4]},{dados[5]}\n")
+    arq_funcionarios.close
+  return funcionarios
 
-}
+def recupera_cardapio():
+  cardapio = {}
+  try:
+    arq_cardapio = open("cardapio.csv", "rt", encoding="utf-8")
+    for linha in arq_cardapio:
+        linha = linha.strip()
+        if linha:
+            categoria, id_item, nome, preco = linha.split(",")
+            if categoria not in cardapio:
+              cardapio[categoria] = {}
+            cardapio[categoria][id_item] = {
+              "nome": nome,
+              "preco": float(preco)
+            }
+    arq_cardapio.close()
+  except:
+    cardapio = {
+      'pizzas' : {
+        "p001" : {
+          "nome" : "calabresa",
+          "preco" : 40.00
+        },
+        'p002' : {
+          "nome" : "margarita",
+          "preco" : 45.00
+        },
+        'p003' : {
+          "nome" : "portuguesa",
+          "preco" : 40.00
+        },
+        'p004' : {
+          "nome" : "carne de sol",
+          "preco" : 35.00
+        }
+      },
+      'lanches' : {
+        'l001' : {
+        "nome" : "hamburguer",
+        "preco" : 17.00
+        },
+        'l002' : {
+          'nome' : "batata-frita",
+          'preco' : 12.00
+        }
+      },
+      'sobremesas' : {
+        's001' : {
+          "nome" : "pudim",
+          "preco" : 7.00
+        },
+        's002' : {
+          'nome' : 'banana-split',
+          'preco' : 10.00 
+        }
+      },
+      'bebidas' : {
+        'b001' : {
+          "nome" : "coca-cola 2l",
+          "preco" : 12.00
+        },
+        'b002' : {
+          "nome" : "guaraná 2l",
+          "preco": 11.00
+        },
+      }
+    }
+    arq_cardapio = open("cardapio.csv", "wt", encoding="utf-8")
+    for categoria, itens in cardapio.items():
+      for id_item, dados in itens.items():
+          arq_cardapio.write(
+            f"{categoria},{id_item},{dados['nome']},{dados['preco']}\n")
+    arq_cardapio.close()
+  return cardapio
+
+def recupera_estoque():
+  estoque = {}
+  try:
+    arq_estoque = open("estoque.csv", "rt", encoding="utf-8")
+    for linha in arq_estoque:
+        linha = linha.strip()
+        if linha:
+            categoria, id_item, nome, estoque = linha.split(",")
+            if categoria not in cardapio:
+              estoque[categoria] = {}
+            estoque[categoria][id_item] = {
+              "nome": nome,
+              "estoque": estoque
+            }
+    arq_estoque.close()
+  except:
+    estoque = {
+      'frios' : {
+        'fr001' : {
+          "nome" : "calabresa",
+          "estoque" : True
+        }
+      },
+      'secos' : {
+        'sc001' : {
+          "nome" : "farinha de trigo",
+          "estoque" : True
+        }
+      },
+      'condimentos' : {
+        'cd001' : {
+          "nome" : "orégano",
+          "estoque" : True
+        }
+      },
+      'bebidas' : {
+        'bd001' : {
+          "nome" : "coca-cola",
+          "estoque" : True
+        }
+      } 
+    }
+    arq_estoque = open("estoque.csv", "wt", encoding="utf-8")
+    for categoria, itens in estoque.items():
+      for id_item, dados in itens.items():
+          arq_estoque.write(
+            f"{categoria},{id_item},{dados['nome']},{dados['estoque']}\n")
+    arq_estoque.close()
+  return estoque
+
+def grava_funcionarios(funcionarios):
+   arq_funcionarios = open("funcionarios.csv", "wt", encoding="utf-8")
+   for id_fun, dados in funcionarios.items():
+      arq_funcionarios.write(f"{id_fun},{dados[0]},{dados[1]},{dados[2]},{dados[3]},{dados[4]},{dados[5]}\n")
+   arq_funcionarios.close()
+
+def grava_cardapio(cardapio):
+   arq_cardapio = open("cardapio.csv", "wt", encoding="utf-8")
+   for categoria, itens in cardapio.items():
+      for id_item, dados in itens.items():
+          arq_cardapio.write(f"{categoria},{id_item},{dados['nome']},{dados['preco']}\n")
+   arq_cardapio.close()
+
+def grava_estoque(estoque):
+  arq_estoque = open("estoque.csv", "wt", encoding="utf-8")
+  for categoria, itens in estoque.items():
+     for id_item, dados in itens.items():
+         arq_estoque.write(f"{categoria},{id_item},{dados['nome']},{dados['estoque']}\n")
+  arq_estoque.close()
+   
+
+funcionarios = recupera_funcionarios()
+cardapio = recupera_cardapio()
+estoque = recupera_estoque()
+
 menu_prin = ""
 while menu_prin != "0":
   limpar()
   print("|' ' ' ' ' ' ' ' ' ' ' ' ' ' '|")     #Primeira versão do layout, tentei fazer uma caixa de pizza kk
   print("|:                           :|")     # OBS: Alterar os "Resps" para um identificador melhor 
-  traçado()
-  traçado()
+  tracado()
+  tracado()
   print("|:::::-------------------:::::|")
   print("|::::/                   \\::::|")
   print("|:::|   Projeto PyPizza   |:::|")
   print("|::::\\                   /::::|")
   print("|::::::-----------------::::::|")
-  traçado()
-  traçado()
+  tracado()
+  tracado()
   print("|:                           :|")
   print("|. . . . . . . . . . . . . . .|")
   print()
-  traçado()
+  tracado()
   print("|:::   1 - Funcionários    :::|")
   print("|:::   2 - Cardápio        :::|")
   print("|:::   3 - Estoque         :::|")
   print("|:::   4 - Relátorio       :::|")
   print("|:::   5 - Informações     :::|")
   print("|:::   0 - Sair            :::|")
-  traçado()
+  tracado()
+
  
   menu_prin = input("|:::   Escolha uma opção: ")
 
   if menu_prin == '1':
-    menu_fun = ''
-    while menu_fun != '0':
-      limpar()
-      print()
-      traçado()
-      print("|:::      FUNCIONÁRIOS     :::|")
-      traçado()
-      print("|:::   1 - Cadastrar       :::|")
-      print("|:::   2 - Pesquisar       :::|")
-      print("|:::   3 - Alterar         :::|")
-      print("|:::   4 - Excluir         :::|")
-      print("|:::   0 - Menu Principal  :::|")
-      traçado()
-      menu_fun = input("|:::   Escolha uma opção: ")
-      print()
-      if menu_fun == '1':
-        limpar()
-        print("|:::::::::::::::::::::::::::::|")
-        print("|:::   Cadastrar novo      :::|")
-        print("|:::     Funcionário       :::|")
-        print("|:::::::::::::::::::::::::::::|")
-        print()
-
-        nome = input("|:::  Nome: ")
-        fone = input("|:::  Telefone: ")
-        email = input("|:::  Email: ")
-        cargo = input("|:::  Cargo: ")
-        id_fun = input("|:::  Id: ")
-        print()
-        if id_fun not in funcionarios:
-          funcionarios[id_fun] = [nome, fone, email, cargo]
-          print("|:::   Funcionário Cadastrado Com Sucesso!!!   :::|")
-          print(funcionarios)
-        else:
-          print("|:::   ID Enviado Já Está Em Uso!!!   :::|")
-
-      elif menu_fun == '2':
-        limpar()
-        print()
-        print("|:::::::::::::::::::::::::::::|")
-        print("|:::       Pesquisar       :::|")
-        print("|:::      Funcionário      :::|")
-        print("|:::::::::::::::::::::::::::::|")
-        print()
-        id_fun = input("|:::   Informe o ID que deseja pesquisar: ")
-        if id_fun in funcionarios:
-          print("|:::   Funcionário Encontrado!!   :::|")
-          print("|::: Nome: ", funcionarios[id_fun][0])
-          print("|::: Telefone: ", funcionarios[id_fun][1])
-          print("|::: Email: ", funcionarios[id_fun][2])
-          print("|::: Cargo: ", funcionarios[id_fun][3])
-          print()
-        else:
-          print("|:::   Funcionário Não Encontrado!!   :::|")
-      elif menu_fun == '3':
-        limpar()
-        print("|:::::::::::::::::::::::::::::|")
-        print("|:::     Alterar dados     :::|")
-        print("|:::    do Funcionário     :::|")
-        print("|:::::::::::::::::::::::::::::|")
-        print()
-        id_fun = input("|:::   Informe o ID do Funcionário: ")
-        if id_fun in funcionarios:
-          print("|:::   Funcionário Encontrado!!   :::|")
-          print("|::: Nome: ", funcionarios[id_fun][0])
-          print("|::: Telefone: ", funcionarios[id_fun][1])
-          print("|::: Email: ", funcionarios[id_fun][2])
-          print("|::: Cargo: ", funcionarios[id_fun][3])
-          print()
-          print("|:::   Informe o Que Deseja Alterar: ")
-          nome = input("|:::  Novo Nome: ")
-          fone = input("|:::  Novo Telefone: ")
-          email = input("|:::  Novo Email: ")
-          cargo = input("|:::  Novo Cargo: ")
-          funcionarios[id_fun] = [nome, fone, email,cargo]
-          print()
-          print("|:::   Dados Alterados Com Sucesso!!!   :::|")
-          print()
-        else:
-          print("|:::   Funcionário Não Encontrado!!   :::|")
-      elif menu_fun == '4':
-        limpar()
-        print("|:::::::::::::::::::::::::::::|")
-        print("|:::        Excluir        :::|")
-        print("|:::      Funcionário      :::|")
-        print("|:::::::::::::::::::::::::::::|")
-        print()
-        id_fun = input("|:::   Informe o ID do funcionário que deseja excluir: ")
-        if id_fun in funcionarios:
-          print("|:::::::::::::::::::::::::::::::::::|")
-          print("|::: Informações do Funcionário  :::|")
-          print("|:::::::::::::::::::::::::::::::::::|")
-          print("|:::   Funcionário Encontrado!!   :::|")
-          print("|::: Nome: ", funcionarios[id_fun][0])
-          print("|::: Telefone: ", funcionarios[id_fun][1])
-          print("|::: Email: ", funcionarios[id_fun][2])
-          print("|::: Cargo: ", funcionarios[id_fun][3])
-          print()
-          decisao = input("|:::   Tecle 's' Para Confirmar a Exclusão:  ").lower()
-          if decisao == 's':
-            del funcionarios[id_fun]
-            print("|:::   Funcionário Excluído!!   :::|")
-          else:
-            print("|:::   Exclusão Cancelada!!   :::|")
-        else:
-            print("|:::   Funcionário Não Encontrado!!   :::|")
-            
-      elif menu_fun == '0':
-        limpar()
-        menu()
-      else:
-        invalida()
-      if menu_fun != '0':
-         input("Pressione ENTER para continuar...")
-
+    menu_funci(funcionarios)
   elif menu_prin == '2':
     menu_card = ''
     while menu_card != '0':
@@ -502,7 +463,7 @@ while menu_prin != "0":
       menu_card = input("|:::   Escolha uma opção: ")
       print ()
       if menu_card == '1':
-        crud_cardapio('pizzas', 'sabor')
+        crud_cardapio('pizzas', 'nome')
       elif menu_card == '2':
         crud_cardapio('lanches', 'nome')
       elif menu_card == '3':
@@ -548,6 +509,8 @@ while menu_prin != "0":
       else:
         invalida()
       print()
+      if menu_estq != '0':
+         input("Pressione ENTER para continuar...")
   elif menu_prin == '4':
     #menu_rlt = ''#
    # while menu_rlt != "0":#
@@ -577,8 +540,6 @@ while menu_prin != "0":
     print("|::: Licença Pública MIT                :::|")
     print("|::: https://opensource.org/license/mit :::|")
     print("|::::::::::::::::::::::::::::::::::::::::::|")
-    print()
-    input("Pressione 'ENTER' para continuar")
   elif menu_prin == '0':
     print("|:::::::::::::::::::::::::::::|")
     print("|:::      Encerrando       :::|")
@@ -600,7 +561,6 @@ print("|:::     Até Mais !!  ;)   :::|")
 print("|:::::::::::::::::::::::::::::|")
 print("Fim do Programa!!!")
 
-arq_funcionarios = open("funcionarios.csv", "wt", encoding="utf-8")
-for id_fun, dados in funcionarios.items():
-    arq_funcionarios.write(f"{id_fun},{dados[0]},{dados[1]},{dados[2]},{dados[3]}\n")
-arq_funcionarios.close()
+grava_funcionarios(funcionarios)
+grava_cardapio(cardapio)
+grava_estoque(estoque)
