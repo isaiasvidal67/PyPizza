@@ -38,6 +38,7 @@ def menu_funci(categoria):
             print()
             id_fun = input("|:::   Informe o ID que deseja pesquisar: ")
             if id_fun in categoria:
+                print("|:::   Funcionário Encontrado!!   :::|")
                 cruds.pesquisa_fun(categoria,id_fun)
             else:
                 print("|:::   Funcionário Não Encontrado!!   :::|")
@@ -49,6 +50,7 @@ def menu_funci(categoria):
             print("|:::::::::::::::::::::::::::::|")
             id_fun = input("|:::   Informe o ID do Funcionário: ")
             if id_fun in categoria:
+                print("|:::   Funcionário Encontrado!!   :::|")
                 cruds.pesquisa_fun(categoria,id_fun)
                 print()
                 print("|:::   Informe o Que Deseja Alterar: ")
