@@ -51,29 +51,60 @@ def menu_funci(categoria):
             id_fun = input("|:::   Informe o ID do Funcionário: ")
             if id_fun in categoria:
                 print("|:::   Funcionário Encontrado!!   :::|")
-                cruds.pesquisa_fun(categoria,id_fun)
+                cruds.pesquisa_fun(categoria, id_fun)
                 print()
-                print("|:::   Informe o Que Deseja Alterar: ")
-                categoria[id_fun] = cruds.dados_fun("Novo ")
+                print("|:::   Informe os Novos Dados: ")
+                dados_novos = cruds.dados_fun("Novo ")
+                dados_novos["ativo"] = categoria[id_fun]["ativo"]
+                categoria[id_fun] = dados_novos
                 print()
                 print("|:::   Dados Alterados Com Sucesso!!!   :::|")
             else:
                 print("|:::   Funcionário Não Encontrado!!   :::|")
         elif menu_fun == '4':
-            funcoes.limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::        Excluir        :::|")
-            print("|:::      Funcionário      :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            id_fun = input("|:::   Informe o ID do funcionário que deseja excluir: ")
-            if id_fun in categoria:
-                print("|:::::::::::::::::::::::::::::::::::|")
-                print("|::: Informações do Funcionário  :::|")
-                print("|:::::::::::::::::::::::::::::::::::|")
-                cruds.pesquisa_fun(categoria,id_fun)
-                funcoes.exclusao(categoria,id_fun)
-            else:
-                print("|:::   Funcionário Não Encontrado!!   :::|")
+            menu_ex = ''
+            while menu_ex != '0':
+                funcoes.limpar()
+                print("|::::::::::::::::::::::::::::::::::::::::::::|")
+                print("|:::                Excluir               :::|")
+                print("|:::               Desativar              :::|")
+                print("|::::::::::::::::::::::::::::::::::::::::::::|")
+                print()
+                print("|::::::::::::::::::::::::::::::::::::::::::::|")
+                print("|:::   1 - Excluir Permanentemente        :::|")
+                print("|:::   2 - Desativar                      :::|")
+                print("|:::   3 - Ativar                         :::|")
+                print("|:::   0 - Menu Principal                 :::|")
+                print("|::::::::::::::::::::::::::::::::::::::::::::|")
+                menu_ex = input("|:::   Escolha uma opção: ")
+                if menu_ex == '1':
+                    funcoes.limpar
+                    id_fun = input("|:::   Informe o ID do Funcionário: ")
+                    if id_fun in categoria:
+                        funcoes.exclusao(categoria, id_fun)
+                    else:
+                        print("|:::   Funcionário Não Encontrado!!   :::|")
+                elif menu_ex == '2':
+                    funcoes.limpar
+                    id_fun = input("|:::   Informe o ID do Funcionário: ")
+                    if id_fun in categoria:
+                        funcoes.desativar(categoria, id_fun)
+                    else:
+                        print("|:::   Funcionário Não Encontrado!!   :::|")
+                elif menu_ex == '3':
+                    funcoes.limpar
+                    id_fun = input("|:::   Informe o ID do Funcionário: ")
+                    if id_fun in categoria:
+                        funcoes.ativar(categoria, id_fun)
+                    else:
+                        print("|:::   Funcionário Não Encontrado!!   :::|")
+                elif menu_ex == '0':
+                    funcoes.limpar()
+                    textos.menu()
+                else:
+                    print("|:::   Opção Inválida!!   :::|")
+                if menu_ex != "0":
+                    input("Pressione ENTER para continuar...")
         elif menu_fun == '0':
             funcoes.limpar()
             textos.menu()

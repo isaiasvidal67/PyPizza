@@ -10,10 +10,34 @@ def exclusao(categoria,id_item):
     else:
         print("|:::   Exclusão Cancelada!!   :::|")
 
+def desativar(categoria, id_item):
+    decisao = input("|:::   Tecle 's' Para Confirmar a Desativação:  ").lower()
+
+    if decisao == 's':
+        categoria[id_item]["ativo"] = False
+        print("|:::   Desativação Concluída!!   :::|")
+    else:
+        print("|:::   Desativação Cancelada!!   :::|")
+
+def ativar(categoria, id_item):
+    decisao = input("|:::   Tecle 's' Para Confirmar a Ativação:  ").lower()
+
+    if decisao == 's':
+        categoria[id_item]["ativo"] = True
+        print("|:::   Ativação Concluída!!   :::|")
+    else:
+        print("|:::   Ativação Cancelada!!   :::|")
+
+        
 def grava_funcionarios(funcionarios):
    arq_funcionarios = open("funcionarios.csv", "wt", encoding="utf-8")
-   for id_fun, dados in funcionarios.items():
-      arq_funcionarios.write(f"{id_fun},{dados[0]},{dados[1]},{dados[2]},{dados[3]},{dados[4]},{dados[5]}\n")
+   for id_item, dados in funcionarios.items():
+            arq_funcionarios.write(
+                f"{id_item},{dados['nome']},{dados['telefone']},"
+                f"{dados['email']},{dados['cargo']},"
+                f"{dados['nascimento']},{dados['cpf']},"
+                f"{dados['ativo']}\n"
+            )
    arq_funcionarios.close()
 
 def grava_cardapio(cardapio):
@@ -30,35 +54,86 @@ def grava_estoque(estoque):
          arq_estoque.write(f"{categoria},{id_item},{dados['nome']},{dados['estoque']}\n")
   arq_estoque.close()
 
-def recupera_funcionarios():   
-  funcionarios = {}
-  try:
-    arq_funcionarios = open("funcionarios.csv", "rt", encoding="utf-8")
-    for linha in arq_funcionarios:
-        linha = linha.strip()
-        if linha:
-            campos = linha.split(",")
-            id_fun = campos[0]
-            nome = campos[1]
-            fone = campos[2]
-            email = campos[3]
-            cargo = campos[4]
-            nascimento = campos[5]
-            cpf = campos[6]
-            funcionarios[id_fun] = [nome, fone, email, cargo, nascimento, cpf]
-    arq_funcionarios.close()
-  except:
-    funcionarios = {
-      'f123' : ["Juninho Forró", "67 99996767", "juninho@forrozeiro123.com", "Garçom", "13/04/2002", "43435678655"],
-      'f898' : ["Severina Guerra", "19 99093939", "severina@guerradecanudos.com", "Atendente", "11/11/1990", "23456765432"],
-      'f656' : ["Chico Petisco", "89 40028922", "chico@petisco.com", "Cozinheiro", "23/08/2006", "115679809876"],
-      'f456' : ["Neymar Jr.", "83 201120215", "Neymar@Junio.com", "Pizzaiolo", "23/11/1999", "67676767676"]
-    }
-    arq_funcionarios = open("funcionarios.csv", "wt", encoding="utf-8")
-    for id_fun, dados in funcionarios.items():
-        arq_funcionarios.write(f"{id_fun},{dados[0]},{dados[1]},{dados[2]},{dados[3]},{dados[4]},{dados[5]}\n")
-    arq_funcionarios.close
-  return funcionarios
+def recupera_funcionarios():
+    funcionarios = {}
+
+    try:
+        arq_funcionarios = open("funcionarios.csv", "rt", encoding="utf-8")
+
+        for linha in arq_funcionarios:
+            linha = linha.strip()
+
+            if linha:
+                id_item, nome, telefone, email, cargo, nascimento, cpf, ativo = linha.split(",")
+
+                funcionarios[id_item] = {
+                    "nome": nome,
+                    "telefone": telefone,
+                    "email": email,
+                    "cargo": cargo,
+                    "nascimento": nascimento,
+                    "cpf": cpf,
+                    "ativo": ativo == "True"
+                }
+
+        arq_funcionarios.close()
+
+    except FileNotFoundError:
+        funcionarios = {
+            'f123': {
+                'nome': "Juninho Forró",
+                'telefone': "67 99996767",
+                'email': "juninho@forrozeiro123.com",
+                'cargo': "Garçom",
+                'nascimento': "13/04/2002",
+                'cpf': "43435678655",
+                'ativo': True
+            },
+
+            'f898': {
+                'nome': "Severina Guerra",
+                'telefone': "19 99093939",
+                'email': "severina@guerradecanudos.com",
+                'cargo': "Atendente",
+                'nascimento': "11/11/1990",
+                'cpf': "23456765432",
+                'ativo': True
+            },
+
+            'f656': {
+                'nome': "Chico Petisco",
+                'telefone': "89 40028922",
+                'email': "chico@petisco.com",
+                'cargo': "Cozinheiro",
+                'nascimento': "23/08/2006",
+                'cpf': "115679809876",
+                'ativo': True
+            },
+
+            'f456': {
+                'nome': "Neymar Jr.",
+                'telefone': "83 201120215",
+                'email': "Neymar@Junio.com",
+                'cargo': "Pizzaiolo",
+                'nascimento': "23/11/1999",
+                'cpf': "67676767676",
+                'ativo': True
+            }
+        }
+
+        arq_funcionarios = open("funcionarios.csv", "wt", encoding="utf-8")
+
+        for id_item, dados in funcionarios.items():
+            arq_funcionarios.write(
+                f"{id_item},{dados['nome']},{dados['telefone']},"
+                f"{dados['email']},{dados['cargo']},"
+                f"{dados['nascimento']},{dados['cpf']},"
+                f"{dados['ativo']}\n"
+            )
+
+        arq_funcionarios.close()
+
+    return funcionarios
 
 
 
@@ -74,7 +149,7 @@ def recupera_cardapio():
               cardapio[categoria] = {}
             cardapio[categoria][id_item] = {
               "nome": nome,
-              "preco": float(preco)
+              "preco": preco
             }
     arq_cardapio.close()
   except:
@@ -82,49 +157,49 @@ def recupera_cardapio():
       'pizzas' : {
         "p001" : {
           "nome" : "calabresa",
-          "preco" : 40.00
+          "preco" : "40.00"
         },
         'p002' : {
           "nome" : "margarita",
-          "preco" : 45.00
+          "preco" : "45.00"
         },
         'p003' : {
           "nome" : "portuguesa",
-          "preco" : 40.00
+          "preco" : "40.00"
         },
         'p004' : {
           "nome" : "carne de sol",
-          "preco" : 35.00
+          "preco" : "35.00"
         }
       },
       'lanches' : {
         'l001' : {
         "nome" : "hamburguer",
-        "preco" : 17.00
+        "preco" : "17.00"
         },
         'l002' : {
           'nome' : "batata-frita",
-          'preco' : 12.00
+          'preco' : "12.00"
         }
       },
       'sobremesas' : {
         's001' : {
           "nome" : "pudim",
-          "preco" : 7.00
+          "preco" : "7.00"
         },
         's002' : {
           'nome' : 'banana-split',
-          'preco' : 10.00 
+          'preco' : "10.00"
         }
       },
       'bebidas' : {
         'b001' : {
           "nome" : "coca-cola 2l",
-          "preco" : 12.00
+          "preco" : "12.00"
         },
         'b002' : {
           "nome" : "guaraná 2l",
-          "preco": 11.00
+          "preco": "11.00"
         },
       }
     }

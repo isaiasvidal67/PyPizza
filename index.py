@@ -4,41 +4,37 @@ from funcionarios import menu_funci
 import funcoes
 from cardapio import menu_card
 from estoque import menu_estoque
-import textos
+import textos 
 
-def tracado():
-    print("|:::::::::::::::::::::::::::::|")
-def limpar():
-    os.system('cls' if os.name == 'nt' else 'clear')  
 funcionarios = funcoes.recupera_funcionarios()
 cardapio = funcoes.recupera_cardapio()
 estoque = funcoes.recupera_estoque()
 
 menu_prin = ""
 while menu_prin != "0":
-  limpar()
+  funcoes.limpar()
   print("|' ' ' ' ' ' ' ' ' ' ' ' ' ' '|")     #Primeira versão do layout, tentei fazer uma caixa de pizza kk
   print("|:                           :|")     # OBS: Alterar os "Resps" para um identificador melhor 
-  tracado()
-  tracado()
+  print("|:::::::::::::::::::::::::::::|")
+  print("|:::::::::::::::::::::::::::::|")
   print("|:::::-------------------:::::|")
   print("|::::/                   \\::::|")
   print("|:::|   Projeto PyPizza   |:::|")
   print("|::::\\                   /::::|")
   print("|::::::-----------------::::::|")
-  tracado()
-  tracado()
+  print("|:::::::::::::::::::::::::::::|")
+  print("|:::::::::::::::::::::::::::::|")
   print("|:                           :|")
   print("|. . . . . . . . . . . . . . .|")
   print()
-  tracado()
+  print("|:::::::::::::::::::::::::::::|")
   print("|:::   1 - Funcionários    :::|")
   print("|:::   2 - Cardápio        :::|")
   print("|:::   3 - Estoque         :::|")
   print("|:::   4 - Relátorio       :::|")
   print("|:::   5 - Informações     :::|")
   print("|:::   0 - Sair            :::|")
-  tracado()
+  print("|:::::::::::::::::::::::::::::|")
 
  
   menu_prin = input("|:::   Escolha uma opção: ")
