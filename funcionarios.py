@@ -1,6 +1,24 @@
 import funcoes
 import cruds
 import textos
+
+campos_exibir_funcionarios = {
+    "Nome": "nome",
+    "Telefone": "telefone",
+    "Email": "email",
+    "Cargo": "cargo",
+    "Nascimento": "nascimento",
+    "CPF": "cpf",
+    "Status": "ativo"
+}
+campos_funcionarios = {
+    "Nome": "nome",
+    "Telefone": "telefone",
+    "Email": "email",
+    "Cargo": "cargo",
+    "Nascimento": "nascimento",
+    "CPF": "cpf"
+}
 def menu_funci(categoria):
     menu_fun = ''
     while menu_fun != '0':
@@ -24,7 +42,7 @@ def menu_funci(categoria):
             print("|:::::::::::::::::::::::::::::|")
             id_fun = input("|:::  Informe um Id: ")
             if id_fun not in categoria:
-                categoria[id_fun] = cruds.dados_fun()
+                categoria[id_fun] = cruds.cadastrar_dados(campos_funcionarios)
                 print("|:::   Funcionário Cadastrado Com Sucesso!!!   :::|")
             else:
                 print("|:::   ID Enviado Já Está Em Uso!!!   :::|")
@@ -39,7 +57,7 @@ def menu_funci(categoria):
             id_fun = input("|:::   Informe o ID que deseja pesquisar: ")
             if id_fun in categoria:
                 print("|:::   Funcionário Encontrado!!   :::|")
-                cruds.pesquisa_fun(categoria,id_fun)
+                cruds.exibir_dados(categoria,id_fun,campos_exibir_funcionarios)
             else:
                 print("|:::   Funcionário Não Encontrado!!   :::|")
         elif menu_fun == '3':
@@ -51,10 +69,10 @@ def menu_funci(categoria):
             id_fun = input("|:::   Informe o ID do Funcionário: ")
             if id_fun in categoria:
                 print("|:::   Funcionário Encontrado!!   :::|")
-                cruds.pesquisa_fun(categoria, id_fun)
+                cruds.exibir_dados(categoria,id_fun,campos_exibir_funcionarios)
                 print()
                 print("|:::   Informe os Novos Dados: ")
-                dados_novos = cruds.dados_fun("Novo ")
+                dados_novos = cruds.cadastrar_dados(campos_funcionarios, "Novo ")
                 dados_novos["ativo"] = categoria[id_fun]["ativo"]
                 categoria[id_fun] = dados_novos
                 print()
@@ -81,6 +99,7 @@ def menu_funci(categoria):
                     funcoes.limpar
                     id_fun = input("|:::   Informe o ID do Funcionário: ")
                     if id_fun in categoria:
+                        cruds.exibir_dados(categoria,id_fun,campos_exibir_funcionarios)
                         funcoes.exclusao(categoria, id_fun)
                     else:
                         print("|:::   Funcionário Não Encontrado!!   :::|")
@@ -88,6 +107,7 @@ def menu_funci(categoria):
                     funcoes.limpar
                     id_fun = input("|:::   Informe o ID do Funcionário: ")
                     if id_fun in categoria:
+                        cruds.exibir_dados(categoria,id_fun,campos_exibir_funcionarios)
                         funcoes.desativar(categoria, id_fun)
                     else:
                         print("|:::   Funcionário Não Encontrado!!   :::|")
@@ -95,6 +115,7 @@ def menu_funci(categoria):
                     funcoes.limpar
                     id_fun = input("|:::   Informe o ID do Funcionário: ")
                     if id_fun in categoria:
+                        cruds.exibir_dados(categoria,id_fun,campos_exibir_funcionarios)
                         funcoes.ativar(categoria, id_fun)
                     else:
                         print("|:::   Funcionário Não Encontrado!!   :::|")

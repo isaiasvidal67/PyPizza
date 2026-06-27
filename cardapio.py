@@ -1,6 +1,19 @@
 import funcoes
 import cruds
 import textos
+
+campos_exibir_cardapio = {
+    "Nome": 'nome',
+    "Preço": 'preco',
+    "Status": "ativo"
+}
+
+campos_cardapio = {
+    "Nome": 'nome',
+    "Preço": 'preco',
+}
+
+
 def menu_card(cardapio):
     id_item = ''
     while id_item != '0':
@@ -33,7 +46,7 @@ def menu_card(cardapio):
         if id_item != '0':
             input("Pressione ENTER para continuar...")
 
-def crud_carp(cardapio,categoria, campo_nome):
+def crud_carp(cardapio,categoria, nome):
         menu_item = ''
         while menu_item != '0':
           funcoes.limpar()
@@ -56,9 +69,7 @@ def crud_carp(cardapio,categoria, campo_nome):
             print()
             if id_item in cardapio[categoria]:
               print("|:::   Item Encontrado!!  :::|")
-              print("|:::   Nome: ", cardapio[categoria][id_item][campo_nome])
-              print("|:::   Preço: ", cardapio[categoria][id_item]['preco'])
-              print()
+              cruds.exibir_dados(cardapio[categoria],id_item,campos_exibir_cardapio)
             else:
               print("|:::  Item Não Encontrado :::|")
               print()
@@ -67,12 +78,9 @@ def crud_carp(cardapio,categoria, campo_nome):
             print("|:::::::::::::::::::::::::::::|")
             print("|:::     Adicionar Item    :::|")
             print("|:::::::::::::::::::::::::::::|")
-            nome = input(f"|:::   Informe o {campo_nome}: ")
-            preco = float(input("|:::   Informe o Preço: "))
             id_item = input("|:::   Informe um ID: ")
-            print()
             if id_item not in cardapio[categoria]:
-              cardapio[categoria][id_item] = {campo_nome : nome, "preco" : preco}
+              cardapio[categoria][id_item] = cruds.cadastrar_dados(campos_cardapio)
               print("|:::::::::::::::::::::::::::::|")
               print("|:::   Item Adicionado!!   :::|")
               print("|:::::::::::::::::::::::::::::|")
@@ -89,35 +97,63 @@ def crud_carp(cardapio,categoria, campo_nome):
             print()
             if id_item in cardapio[categoria]:
               print("|:::   Item Encontrado!!  :::|")
-              print("|:::   Nome: ", cardapio[categoria][id_item][campo_nome])
-              print("|:::   Preço: ", cardapio[categoria][id_item]['preco'])
+              cruds.exibir_dados(cardapio[categoria],id_item,campos_cardapio)
               print("|:::   Informe o que Deseja Alterar   :::|")
-              nome = input(f"|:::   Novo {campo_nome}:  ")
-              preco = float(input("|:::   Informe o Preço: "))
-              cardapio[categoria][id_item][campo_nome] = nome
-              cardapio[categoria][id_item]['preco'] = preco
+              dados_novos = cruds.cadastrar_dados(campos_cardapio, "Novo ")
+              dados_novos["ativo"] = cardapio[categoria][id_item]["ativo"]
+              cardapio[categoria][id_item] = dados_novos
               print()
               print("|::: Item Alterado com Sucesso :::|")
               print(cardapio[categoria][id_item])
             else:
               print("|:::   Item não encontrado :::|")
           elif menu_item == '4':
-            funcoes.limpar()
-            print("|:::::::::::::::::::::::::::::|")
-            print("|:::     Excluir Item      :::|")
-            print("|:::::::::::::::::::::::::::::|")
-            id_item = input("|:::   Informe o ID: ")
-            print()
-            if id_item in cardapio[categoria]:
-              print("|:::::::::::::::::::::::::::::|")
-              print("|::: Informações do Item  :::|")
-              print("|:::::::::::::::::::::::::::::|")
-              print("|:::   Nome:", cardapio[categoria][id_item][campo_nome])
-              print("|:::   Preço: ", cardapio[categoria][id_item]['preco'])
-              print()
-              funcoes.exclusao(cardapio[categoria], id_item)
-            else:
-              print("|:::   Item Não Encontrado!!   :::|")
+            menu_ex = ''
+            while menu_ex != '0':
+                funcoes.limpar()
+                print("|::::::::::::::::::::::::::::::::::::::::::::|")
+                print("|:::                Excluir               :::|")
+                print("|:::               Desativar              :::|")
+                print("|::::::::::::::::::::::::::::::::::::::::::::|")
+                print()
+                print("|::::::::::::::::::::::::::::::::::::::::::::|")
+                print("|:::   1 - Excluir Permanentemente        :::|")
+                print("|:::   2 - Desativar                      :::|")
+                print("|:::   3 - Ativar                         :::|")
+                print("|:::   0 - Menu Principal                 :::|")
+                print("|::::::::::::::::::::::::::::::::::::::::::::|")
+                menu_ex = input("|:::   Escolha uma opção: ")
+                if menu_ex == '1':
+                    funcoes.limpar
+                    id_item = input("|:::   Informe o ID do Item: ")
+                    if id_item in cardapio[categoria]:
+                        cruds.exibir_dados(cardapio[categoria],id_item,campos_exibir_cardapio)
+                        funcoes.exclusao(cardapio[categoria], id_item)
+                    else:
+                        print("|:::   Item Não Encontrado!!   :::|")
+                elif menu_ex == '2':
+                    funcoes.limpar
+                    id_item = input("|:::   Informe o ID do Item: ")
+                    if id_item in cardapio[categoria]:
+                        cruds.exibir_dados(cardapio[categoria],id_item,campos_exibir_cardapio)
+                        funcoes.desativar(cardapio[categoria], id_item)
+                    else:
+                        print("|:::   Item Não Encontrado!!   :::|")
+                elif menu_ex == '3':
+                    funcoes.limpar
+                    id_item = input("|:::   Informe o ID do Item: ")
+                    if id_item in cardapio[categoria]:
+                        cruds.exibir_dados(cardapio[categoria],id_item,campos_exibir_cardapio)
+                        funcoes.ativar(cardapio[categoria], id_item)
+                    else:
+                        print("|:::   Item Não Encontrado!!   :::|")
+                elif menu_ex == '0':
+                    funcoes.limpar()
+                    textos.menu()
+                else:
+                    print("|:::   Opção Inválida!!   :::|")
+                if menu_ex != "0":
+                    input("Pressione ENTER para continuar...")
           elif menu_item == '0':
             funcoes.limpar()
             textos.menu()

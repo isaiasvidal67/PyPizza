@@ -11,8 +11,10 @@ def exclusao(categoria,id_item):
         print("|:::   Exclusão Cancelada!!   :::|")
 
 def desativar(categoria, id_item):
+    if not categoria[id_item]["ativo"]:
+       print("|:::   ID Já Está Desativado!!   :::|")
+       return
     decisao = input("|:::   Tecle 's' Para Confirmar a Desativação:  ").lower()
-
     if decisao == 's':
         categoria[id_item]["ativo"] = False
         print("|:::   Desativação Concluída!!   :::|")
@@ -20,13 +22,15 @@ def desativar(categoria, id_item):
         print("|:::   Desativação Cancelada!!   :::|")
 
 def ativar(categoria, id_item):
+    if categoria[id_item]["ativo"]:
+        print("|:::   ID Já Está Ativo!!   :::|")
+        return
     decisao = input("|:::   Tecle 's' Para Confirmar a Ativação:  ").lower()
-
-    if decisao == 's':
-        categoria[id_item]["ativo"] = True
-        print("|:::   Ativação Concluída!!   :::|")
+    if decisao == "s":
+      categoria[id_item]["ativo"] = True
+      print("|:::   Ativação Concluída!!   :::|")
     else:
-        print("|:::   Ativação Cancelada!!   :::|")
+      print("|:::   Ativação Cancelada!!   :::|")
 
         
 def grava_funcionarios(funcionarios):
@@ -44,28 +48,24 @@ def grava_cardapio(cardapio):
    arq_cardapio = open("cardapio.csv", "wt", encoding="utf-8")
    for categoria, itens in cardapio.items():
       for id_item, dados in itens.items():
-          arq_cardapio.write(f"{categoria},{id_item},{dados['nome']},{dados['preco']}\n")
+          arq_cardapio.write(f"{categoria},{id_item},{dados['nome']},{dados['preco']},{dados['ativo']}\n")
    arq_cardapio.close()
 
 def grava_estoque(estoque):
   arq_estoque = open("estoque.csv", "wt", encoding="utf-8")
   for categoria, itens in estoque.items():
      for id_item, dados in itens.items():
-         arq_estoque.write(f"{categoria},{id_item},{dados['nome']},{dados['estoque']}\n")
+         arq_estoque.write(f"{categoria},{id_item},{dados['nome']},{dados['ativo']}\n")
   arq_estoque.close()
 
 def recupera_funcionarios():
     funcionarios = {}
-
     try:
         arq_funcionarios = open("funcionarios.csv", "rt", encoding="utf-8")
-
         for linha in arq_funcionarios:
             linha = linha.strip()
-
             if linha:
                 id_item, nome, telefone, email, cargo, nascimento, cpf, ativo = linha.split(",")
-
                 funcionarios[id_item] = {
                     "nome": nome,
                     "telefone": telefone,
@@ -75,7 +75,6 @@ def recupera_funcionarios():
                     "cpf": cpf,
                     "ativo": ativo == "True"
                 }
-
         arq_funcionarios.close()
 
     except FileNotFoundError:
@@ -144,12 +143,13 @@ def recupera_cardapio():
     for linha in arq_cardapio:
         linha = linha.strip()
         if linha:
-            categoria, id_item, nome, preco = linha.split(",")
+            categoria, id_item, nome, preco, ativo = linha.split(",")
             if categoria not in cardapio:
               cardapio[categoria] = {}
             cardapio[categoria][id_item] = {
               "nome": nome,
-              "preco": preco
+              "preco": preco,
+              "ativo" : ativo == "True"
             }
     arq_cardapio.close()
   except:
@@ -157,49 +157,60 @@ def recupera_cardapio():
       'pizzas' : {
         "p001" : {
           "nome" : "calabresa",
-          "preco" : "40.00"
+          "preco" : "40.00",
+          "ativo" : True
+
         },
         'p002' : {
           "nome" : "margarita",
-          "preco" : "45.00"
+          "preco" : "45.00",
+          "ativo" : True
         },
         'p003' : {
           "nome" : "portuguesa",
-          "preco" : "40.00"
+          "preco" : "40.00",
+          "ativo" : True
         },
         'p004' : {
           "nome" : "carne de sol",
-          "preco" : "35.00"
+          "preco" : "35.00",
+          "ativo" : True
         }
       },
       'lanches' : {
         'l001' : {
         "nome" : "hamburguer",
-        "preco" : "17.00"
+        "preco" : "17.00",
+        "ativo" : True
         },
         'l002' : {
-          'nome' : "batata-frita",
-          'preco' : "12.00"
+          "nome" : "batata-frita",
+          "preco" : "12.00",
+          "ativo" : True
         }
       },
       'sobremesas' : {
         's001' : {
           "nome" : "pudim",
-          "preco" : "7.00"
+          "preco" : "7.00",
+          "ativo" : True
         },
         's002' : {
           'nome' : 'banana-split',
-          'preco' : "10.00"
+          'preco' : "10.00",
+          "ativo" : True
         }
       },
       'bebidas' : {
         'b001' : {
           "nome" : "coca-cola 2l",
-          "preco" : "12.00"
+          "preco" : "12.00",
+          "ativo" : True
         },
         'b002' : {
           "nome" : "guaraná 2l",
-          "preco": "11.00"
+          "preco": "11.00",
+          "ativo" : True
         },
       }
     }
@@ -207,7 +218,7 @@ def recupera_cardapio():
     for categoria, itens in cardapio.items():
       for id_item, dados in itens.items():
           arq_cardapio.write(
-            f"{categoria},{id_item},{dados['nome']},{dados['preco']}\n")
+            f"{categoria},{id_item},{dados['nome']},{dados['preco']},{dados['ativo']}\n")
     arq_cardapio.close()
   return cardapio
 
@@ -219,12 +230,12 @@ def recupera_estoque():
     for linha in arq_estoque:
         linha = linha.strip()
         if linha:
-            categoria, id_item, nome, estoque = linha.split(",")
+            categoria, id_item, nome, ativo = linha.split(",")
             if categoria not in estoque:
               estoque[categoria] = {}
             estoque[categoria][id_item] = {
               "nome": nome,
-              "estoque": estoque
+              "ativo": ativo == True
             }
     arq_estoque.close()
   except:
@@ -232,25 +243,25 @@ def recupera_estoque():
       'frios' : {
         'fr001' : {
           "nome" : "calabresa",
-          "estoque" : True
+          "ativo" : True
         }
       },
       'secos' : {
         'sc001' : {
           "nome" : "farinha de trigo",
-          "estoque" : True
+          "ativo" : True
         }
       },
       'condimentos' : {
         'cd001' : {
           "nome" : "orégano",
-          "estoque" : True
+          "ativo" : True
         }
       },
       'bebidas' : {
         'bd001' : {
           "nome" : "coca-cola",
-          "estoque" : True
+          "ativo" : True
         }
       } 
     }
@@ -258,7 +269,7 @@ def recupera_estoque():
     for categoria, itens in estoque.items():
       for id_item, dados in itens.items():
           arq_estoque.write(
-            f"{categoria},{id_item},{dados['nome']},{dados['estoque']}\n")
+            f"{categoria},{id_item},{dados['nome']},{dados['ativo']}\n")
     arq_estoque.close()
   return estoque
 
